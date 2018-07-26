@@ -30,25 +30,6 @@ var gainers = [];
 //Api Key
 var apiKey = "JSEZ8SK1RA528ZXU";
 
-// Present Time
-var presentTime = Date.now().toString("yyyy-MM-dd H:mm:ss")
-var timeCheck = Date.now().toString("H");
-
-// Days
-var day = Date.today().toString()[0] + Date.today().toString()[1] + Date.today().toString()[2];
-var today = Date.today().toString("yyyy-MM-dd");
-var day_2 = Date.today().add(-1).days().toString("yyyy-MM-dd");
-var day_3 = Date.today().add(-2).days().toString("yyyy-MM-dd");
-
-// Weeks
-var friday_1 = Date.today().friday().addWeeks(-3).toString("yyyy-MM-dd");
-var friday_2 = Date.today().friday().addWeeks(-2).toString("yyyy-MM-dd");
-
-// Month
-var month_1 = Date.today().add(-2).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
-var month_2 = Date.today().add(-1).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
-
-
 
 //Checking if its a Holiday
 function ifHoliday() {
@@ -207,20 +188,29 @@ var tr = "<tr>";
 var trC = "</tr>";
 var next = "";
 
-//Sleep Function
-function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds) {
-            break;
-        }
-    }
-}
 
 //Algorithm ==============================================================================
 class Algo {
     constructor(sym) {
         this.sym = sym;
+
+        // Present Time
+        this.presentTime = Date.now().toString("yyyy-MM-dd H:mm:ss")
+        this.timeCheck = Date.now().toString("H");
+
+        // Days
+        this.day = Date.today().toString()[0] + Date.today().toString()[1] + Date.today().toString()[2];
+        this.today = Date.today().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-1).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+
+        // Weeks
+        this.friday_1 = Date.today().friday().addWeeks(-3).toString("yyyy-MM-dd");
+        this.friday_2 = Date.today().friday().addWeeks(-2).toString("yyyy-MM-dd");
+
+        // Month
+        this.month_1 = Date.today().add(-2).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
+        this.month_2 = Date.today().add(-1).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
     }
 
     run() {
