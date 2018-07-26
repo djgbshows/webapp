@@ -80,9 +80,8 @@ class Algo {
         this.month_2 = Date.today().add(-1).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
 
 
-        init()
+        this.init()
     }
-
 
 
     //Checking if its a Holiday
@@ -216,26 +215,27 @@ class Algo {
 
     // Self execute all error checking functions
     init() {
-        ifHoliday()
+        this.ifHoliday()
         // ifTimeRange()
-        ifTimeAbove()
-        ifLastDayOfMonth()
+        this.ifTimeAbove()
+        this.ifLastDayOfMonth()
     }
 
     run() {
 
         
-        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + apiKey, function (data) {
-
+        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, function (data) {
+console.log(data)
+console.log(this.month_1);
             this.month = {
 
                 ticker: data["Meta Data"]["2. Symbol"],
                 open: Number(data["Monthly Time Series"]["2018-05-31"]["1. open"]),
 
-                high_1: Number(data[monthlyTimeSeries][month_1][high]),
-                low_1: Number(data[monthlyTimeSeries][month_1][low]),
-                close_1: Number(data[monthlyTimeSeries][month_1][close]),
-                volume_1: Number(data[monthlyTimeSeries][month_1][volume]),
+                high_1: Number(data[this.monthlyTimeSeries][month_1][high]),
+                low_1: Number(data[this.monthlyTimeSeries][this.month_1][this.low]),
+                close_1: Number(data[this.monthlyTimeSeries][this.month_1][this.close]),
+                volume_1: Number(data[this.monthlyTimeSeries][this.month_1][this.volume]),
 
                 open_2: Number(data[monthlyTimeSeries][month_2][open]),
                 high_2: Number(data[monthlyTimeSeries][month_2][high]),
@@ -326,4 +326,5 @@ class Algo {
             }
         });
     }
+    
 }
