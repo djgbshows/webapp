@@ -30,146 +30,6 @@ var gainers = [];
 //Api Key
 var apiKey = "JSEZ8SK1RA528ZXU";
 
-
-//Checking if its a Holiday
-function ifHoliday() {
-    if (today == Date.today().toString("yyyy-01-01") || today == Date.today().toString("yyyy-01-15") || today == Date.today().toString("yyyy-02-19") || today == Date.today().toString("yyyy-03-29") || today == Date.today().toString("yyyy-03-30") || today == Date.today().toString("yyyy-05-27") || today == Date.today().toString("yyyy-05-28") || today == Date.today().toString("yyyy-07-03") || today == Date.today().toString("yyyy-07-04") || today == Date.today().toString("yyyy-05-08") || today == Date.today().toString("yyyy-09-03") || today == Date.today().toString("yyyy-11-12") || today == Date.today().toString("yyyy-11-22") || today == Date.today().toString("yyyy-11-23") || today == Date.today().toString("yyyy-12-24") || today == Date.today().toString("yyyy-12-25") || today == Date.today().toString("yyyy-12-31")) {
-
-        today = Date.today().add(-1).days().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-        console.log("Its a holiday, converting to testing mood");
-
-    } else {
-
-        console.log("Its not a holiday");
-    }
-}
-
-// Checking if time ranges between midnight and 8:00am - for testing purposes only
-function ifTimeRange() {
-    if (Date.now().toString("hh:mm:ss") > "00:00:00" && Date.now().toString("hh:mm:ss") < "08:00:00") {
-        today = Date.today().add(-1).days().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-        console.log(today)
-
-    } else {
-        console.log("Is it 12am - 8am? " + false)
-    }
-}
-
-// Check if today is a weekend
-function ifWeekend() {
-
-    //Checking Day TimeFrame
-    if (day == "Mon") {
-        console.log("Today is Monday, executing ifWeekend function")
-        today = Date.today().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
-
-    } else if (day == "Sat") {
-        console.log("Today is Saturday, executing ifWeekend function")
-        presentTime = Date.today().add(-1).days().toString("yyyy-MM-dd 16:00:00");
-        today = Date.today().add(-1).days().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-
-    } else if (day == "Sun") {
-        console.log("Today is Sunday, executing ifWeekend function")
-        today = Date.today().add(-2).days().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
-
-    } else {
-        console.log('Checking if today is Monday... Looks like Today TimeFrame is ' + day);
-    }
-
-    //Checking Month_1 TimeFrame
-    if (month_1 == "Mon") {
-        console.log("Today is Monday, executing ifWeekend function")
-        today = Date.today().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
-
-    } else if (month_1 == "Sat") {
-        console.log("Today is Saturday, executing ifWeekend function")
-        presentTime = Date.today().add(-1).days().toString("yyyy-MM-dd 16:00:00");
-        today = Date.today().add(-1).days().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-
-    } else if (month_1 == "Sun") {
-        console.log("Today is Sunday, executing ifWeekend function")
-        today = Date.today().add(-2).days().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
-
-    } else {
-        console.log('Checking if today is Monday... Looks like Month_1 TimeFrame is ' + day);
-    }
-
-    //Checking Month_2 TimeFrame
-    if (month_2 == "Mon") {
-        console.log("Today is Monday, executing ifWeekend function")
-        today = Date.today().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
-
-    } else if (month_2 == "Sat") {
-        console.log("Today is Saturday, executing ifWeekend function")
-        presentTime = Date.today().add(-1).days().toString("yyyy-MM-dd 16:00:00");
-        today = Date.today().add(-1).days().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-
-    } else if (month_2 == "Sun") {
-        console.log("Today is Sunday, executing ifWeekend function")
-        today = Date.today().add(-2).days().toString("yyyy-MM-dd");
-        day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-        day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
-
-    } else {
-        console.log('Checking if today is Monday... Looks like Month_2 TimeFrame is ' + day);
-    }
-}
-
-// Check if the time is above 16:00:00
-function ifTimeAbove() {
-    if (timeCheck > "16" || timeCheck < "09") {
-        console.log("Present Time is greater than 16, will revert to 16:00:00");
-        presentTime = new Date.now().toString("yyyy-MM-dd 16:00:00");
-    } else {
-        console.log("Present Time is " + presentTime);
-    }
-}
-
-// Checking if last day of month is a friday
-function ifLastDayOfMonth() {
-    if (Date.parse(month_1).is().sun() || Date.parse(month_1).is().sat() == true) {
-        month_1 = Date.parse(month_1).last().friday().toString("yyyy-MM-dd");
-    } else {
-        console.log("month_1 is friday");
-    }
-
-    if (Date.parse(month_2).is().sun() || Date.parse(month_2).is().sat() == true) {
-        month_2 = Date.parse(month_2).last().friday().toString("yyyy-MM-dd");
-    } else {
-        console.log("month_2 is friday")
-    }
-}
-
-// Self execute all error checking functions
-(function errorCheck() {
-    ifHoliday()
-    // ifTimeRange()
-    ifTimeAbove()
-    ifLastDayOfMonth()
-})()
-
-
-
 // Time Series 
 var dailyTimeSeries = "Time Series (Daily)";
 var weeklyTimeSeries = "Weekly Time Series";
@@ -188,9 +48,166 @@ var tr = "<tr>";
 var trC = "</tr>";
 var next = "";
 
+// Days
+this.day = Date.today().toString()[0] + Date.today().toString()[1] + Date.today().toString()[2];
+this.today = Date.today().toString("yyyy-MM-dd");
+this.day_2 = Date.today().add(-1).days().toString("yyyy-MM-dd");
+this.day_3 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+
+// Weeks
+this.friday_1 = Date.today().friday().addWeeks(-3).toString("yyyy-MM-dd");
+this.friday_2 = Date.today().friday().addWeeks(-2).toString("yyyy-MM-dd");
+
+// Month
+this.month_1 = Date.today().add(-2).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
+this.month_2 = Date.today().add(-1).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
+
+
+//Checking if its a Holiday
+function ifHoliday() {
+    if (this.today == Date.today().toString("yyyy-01-01") || this.today == Date.today().toString("yyyy-01-15") || this.today == Date.today().toString("yyyy-02-19") || this.today == Date.today().toString("yyyy-03-29") || this.today == Date.today().toString("yyyy-03-30") || this.today == Date.today().toString("yyyy-05-27") || this.today == Date.today().toString("yyyy-05-28") || this.today == Date.today().toString("yyyy-07-03") || this.today == Date.today().toString("yyyy-07-04") || this.today == Date.today().toString("yyyy-05-08") || this.today == Date.today().toString("yyyy-09-03") || this.today == Date.today().toString("yyyy-11-12") || this.today == Date.today().toString("yyyy-11-22") || this.today == Date.today().toString("yyyy-11-23") || this.today == Date.today().toString("yyyy-12-24") || this.today == Date.today().toString("yyyy-12-25") || this.today == Date.today().toString("yyyy-12-31")) {
+
+        this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+        console.log("Its a holiday, converting to testing mood");
+
+    } else {
+
+        console.log("Its not a holiday");
+    }
+}
+
+// Checking if time ranges between midnight and 8:00am - for testing purposes only
+function ifTimeRange() {
+    if (Date.now().toString("hh:mm:ss") > "00:00:00" && Date.now().toString("hh:mm:ss") < "08:00:00") {
+        this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+        console.log(today)
+
+    } else {
+        console.log("Is it 12am - 8am? " + false)
+    }
+}
+
+// Check if today is a weekend
+function ifWeekend() {
+
+    //Checking Day TimeFrame
+    if (this.day == "Mon") {
+        console.log("Today is Monday, executing ifWeekend function")
+        this.today = Date.today().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
+
+    } else if (this.day == "Sat") {
+        console.log("Today is Saturday, executing ifWeekend function")
+        this.presentTime = Date.today().add(-1).days().toString("yyyy-MM-dd 16:00:00");
+        this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+
+    } else if (this.day == "Sun") {
+        console.log("Today is Sunday, executing ifWeekend function")
+        this.today = Date.today().add(-2).days().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
+
+    } else {
+        console.log('Checking if today is Monday... Looks like Today TimeFrame is ' + this.day);
+    }
+
+    //Checking Month_1 TimeFrame
+    if (this.month_1 == "Mon") {
+        console.log("Today is Monday, executing ifWeekend function")
+        this.today = Date.today().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
+
+    } else if (this.month_1 == "Sat") {
+        console.log("Today is Saturday, executing ifWeekend function")
+        this.presentTime = Date.today().add(-1).days().toString("yyyy-MM-dd 16:00:00");
+        this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+
+    } else if (this.month_1 == "Sun") {
+        console.log("Today is Sunday, executing ifWeekend function")
+        this.today = Date.today().add(-2).days().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
+
+    } else {
+        console.log('Checking if today is Monday... Looks like Month_1 TimeFrame is ' + this.day);
+    }
+
+    //Checking Month_2 TimeFrame
+    if (this.month_2 == "Mon") {
+        console.log("Today is Monday, executing ifWeekend function")
+        this.today = Date.today().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
+
+    } else if (this.month_2 == "Sat") {
+        console.log("Today is Saturday, executing ifWeekend function")
+        this.presentTime = Date.today().add(-1).days().toString("yyyy-MM-dd 16:00:00");
+        this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+
+    } else if (this.month_2 == "Sun") {
+        console.log("Today is Sunday, executing ifWeekend function")
+        this.today = Date.today().add(-2).days().toString("yyyy-MM-dd");
+        this.day_2 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+        this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
+
+    } else {
+        console.log('Checking if today is Monday... Looks like Month_2 TimeFrame is ' + this.day);
+    }
+}
+
+// Check if the time is above 16:00:00
+function ifTimeAbove() {
+    if (this.timeCheck > "16" || this.timeCheck < "09") {
+        console.log("Present Time is greater than 16, will revert to 16:00:00");
+        this.presentTime = new Date.now().toString("yyyy-MM-dd 16:00:00");
+    } else {
+        console.log("Present Time is " + this.presentTime);
+    }
+}
+
+// Checking if last day of month is a friday
+function ifLastDayOfMonth() {
+    if (Date.parse(this.month_1).is().sun() || Date.parse(this.month_1).is().sat() == true) {
+        this.month_1 = Date.parse(this.month_1).last().friday().toString("yyyy-MM-dd");
+    } else {
+        console.log("month_1 is friday");
+    }
+
+    if (Date.parse(this.month_2).is().sun() || Date.parse(this.month_2).is().sat() == true) {
+        this.month_2 = Date.parse(this.month_2).last().friday().toString("yyyy-MM-dd");
+    } else {
+        console.log("month_2 is friday")
+    }
+}
+
+// Self execute all error checking functions
+function init() {
+    ifHoliday()
+    // ifTimeRange()
+    ifTimeAbove()
+    ifLastDayOfMonth()
+}
+
+
+
+
+
 
 //Algorithm ==============================================================================
 class Algo {
+
     constructor(sym) {
         this.sym = sym;
 
@@ -198,19 +215,7 @@ class Algo {
         this.presentTime = Date.now().toString("yyyy-MM-dd H:mm:ss")
         this.timeCheck = Date.now().toString("H");
 
-        // Days
-        this.day = Date.today().toString()[0] + Date.today().toString()[1] + Date.today().toString()[2];
-        this.today = Date.today().toString("yyyy-MM-dd");
-        this.day_2 = Date.today().add(-1).days().toString("yyyy-MM-dd");
-        this.day_3 = Date.today().add(-2).days().toString("yyyy-MM-dd");
-
-        // Weeks
-        this.friday_1 = Date.today().friday().addWeeks(-3).toString("yyyy-MM-dd");
-        this.friday_2 = Date.today().friday().addWeeks(-2).toString("yyyy-MM-dd");
-
-        // Month
-        this.month_1 = Date.today().add(-2).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
-        this.month_2 = Date.today().add(-1).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
+        init()
     }
 
     run() {
