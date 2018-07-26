@@ -79,7 +79,6 @@ class Algo {
         this.month_1 = Date.today().add(-2).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
         this.month_2 = Date.today().add(-1).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
 
-
         this.init()
     }
 
@@ -215,6 +214,7 @@ class Algo {
 
     // Self execute all error checking functions
     init() {
+        
         this.ifHoliday()
         // ifTimeRange()
         this.ifTimeAbove()
@@ -223,31 +223,31 @@ class Algo {
 
     run() {
 
-        
-        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, function (data) {
-console.log(data)
-console.log(this.month_1);
+
+        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey,  (data) => {
+            console.log(data)
+            console.log(this.month_1);
             this.month = {
 
                 ticker: data["Meta Data"]["2. Symbol"],
                 open: Number(data["Monthly Time Series"]["2018-05-31"]["1. open"]),
 
-                high_1: Number(data[this.monthlyTimeSeries][month_1][high]),
+                high_1: Number(data[this.monthlyTimeSeries][this.month_1][this.high]),
                 low_1: Number(data[this.monthlyTimeSeries][this.month_1][this.low]),
                 close_1: Number(data[this.monthlyTimeSeries][this.month_1][this.close]),
                 volume_1: Number(data[this.monthlyTimeSeries][this.month_1][this.volume]),
 
-                open_2: Number(data[monthlyTimeSeries][month_2][open]),
-                high_2: Number(data[monthlyTimeSeries][month_2][high]),
-                low_2: Number(data[monthlyTimeSeries][month_2][low]),
-                close_2: Number(data[monthlyTimeSeries][month_2][close]),
-                volume_2: Math.round(Number(data[monthlyTimeSeries][month_2][volume])),
+                open_2: Number(data[this.monthlyTimeSeries][this.month_2][this.open]),
+                high_2: Number(data[this.monthlyTimeSeries][this.month_2][this.high]),
+                low_2: Number(data[this.monthlyTimeSeries][this.month_2][this.low]),
+                close_2: Number(data[this.monthlyTimeSeries][this.month_2][this.close]),
+                volume_2: Math.round(Number(data[this.monthlyTimeSeries][this.month_2][this.volume])),
 
-                open_3: Number(data[monthlyTimeSeries][today][open]),
-                high_3: Number(data[monthlyTimeSeries][today][high]),
-                low_3: Number(data[monthlyTimeSeries][today][low]),
-                close_3: Number(data[monthlyTimeSeries][today][close]),
-                volume_3: Number(data[monthlyTimeSeries][today][volume]),
+                open_3: Number(data[this.monthlyTimeSeries][this.today][this.open]),
+                high_3: Number(data[this.monthlyTimeSeries][this.today][this.high]),
+                low_3: Number(data[this.monthlyTimeSeries][this.today][this.low]),
+                close_3: Number(data[this.monthlyTimeSeries][this.today][this.close]),
+                volume_3: Number(data[this.monthlyTimeSeries][this.today][this.volume]),
 
                 mclose: "",
                 mlow: "",
@@ -326,5 +326,5 @@ console.log(this.month_1);
             }
         });
     }
-    
+
 }
