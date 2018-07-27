@@ -83,6 +83,7 @@ class Algo {
     }
 
 
+
     //Checking if its a Holiday
     ifHoliday() {
         if (this.today == Date.today().toString("yyyy-01-01") || this.today == Date.today().toString("yyyy-01-15") || this.today == Date.today().toString("yyyy-02-19") || this.today == Date.today().toString("yyyy-03-29") || this.today == Date.today().toString("yyyy-03-30") || this.today == Date.today().toString("yyyy-05-27") || this.today == Date.today().toString("yyyy-05-28") || this.today == Date.today().toString("yyyy-07-03") || this.today == Date.today().toString("yyyy-07-04") || this.today == Date.today().toString("yyyy-05-08") || this.today == Date.today().toString("yyyy-09-03") || this.today == Date.today().toString("yyyy-11-12") || this.today == Date.today().toString("yyyy-11-22") || this.today == Date.today().toString("yyyy-11-23") || this.today == Date.today().toString("yyyy-12-24") || this.today == Date.today().toString("yyyy-12-25") || this.today == Date.today().toString("yyyy-12-31")) {
@@ -214,7 +215,7 @@ class Algo {
 
     // Self execute all error checking functions
     init() {
-        
+
         this.ifHoliday()
         // ifTimeRange()
         this.ifTimeAbove()
@@ -224,9 +225,8 @@ class Algo {
     run() {
 
 
-        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey,  (data) => {
-            console.log(data)
-            console.log(this.month_1);
+        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
+            
             this.month = {
 
                 ticker: data["Meta Data"]["2. Symbol"],
@@ -257,6 +257,7 @@ class Algo {
 
             }
 
+
             var diff = this.month.close_2 * 0.0044;
             var equate = diff + this.month.close_2;
             var gap = equate.toFixed(2);
@@ -264,7 +265,7 @@ class Algo {
 
             //Algorithm: ===========================================================================================
             //Call pattern checks 3 candles. If candle 1 close & low is greater than candle 2 close & low and candle 2 close is less than candle 3 open.       
-
+            
             // Check if candle 1 low is greater than candle 2 low
             if (this.month.low_1 > this.month.low_2) {
                 this.month.mlow = +1
