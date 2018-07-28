@@ -16,23 +16,14 @@
   look for gaps in price on open
 */
 
-
 /* Print out 
   entry and exit limit orders
   contract time frames
   best strategy
  */
 
-
-//Option Symbols
-
-
-
-
-
-
-
 //Algorithm ==============================================================================
+
 class Algo {
 
     constructor(sym) {
@@ -53,7 +44,6 @@ class Algo {
         this.monthlyTimeSeries = "Monthly Time Series";
 
         this.open = "1. open";
-        this.open1 = "1. open";
         this.high = "2. high";
         this.low = "3. low";
         this.close = "4. close";
@@ -81,8 +71,6 @@ class Algo {
 
         this.init()
     }
-
-
 
     //Checking if its a Holiday
     ifHoliday() {
@@ -214,24 +202,26 @@ class Algo {
     }
 
     // Self execute all error checking functions
+
+
     init() {
 
+        this.ifWeekend()
         this.ifHoliday()
-        // ifTimeRange()
+        this.ifTimeRange()
         this.ifTimeAbove()
         this.ifLastDayOfMonth()
     }
 
-    run() {
-
+    getMonth() {
 
         $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
-            
+
             this.month = {
 
                 ticker: data["Meta Data"]["2. Symbol"],
-                open: Number(data["Monthly Time Series"]["2018-05-31"]["1. open"]),
 
+                open: Number(data[this.monthlyTimeSeries][this.month_1][this.open]),
                 high_1: Number(data[this.monthlyTimeSeries][this.month_1][this.high]),
                 low_1: Number(data[this.monthlyTimeSeries][this.month_1][this.low]),
                 close_1: Number(data[this.monthlyTimeSeries][this.month_1][this.close]),
@@ -265,7 +255,7 @@ class Algo {
 
             //Algorithm: ===========================================================================================
             //Call pattern checks 3 candles. If candle 1 close & low is greater than candle 2 close & low and candle 2 close is less than candle 3 open.       
-            
+
             // Check if candle 1 low is greater than candle 2 low
             if (this.month.low_1 > this.month.low_2) {
                 this.month.mlow = +1
@@ -325,6 +315,219 @@ class Algo {
             } else {
                 console.log("No Signal Found! " + this.month.ticker, this.month.mpullback, this.month.mlow, this.month.mclose, this.month.gap, this.month.mvolume, " Decision " + decision)
             }
+
+        });
+    }
+
+    getWeek() {
+
+        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
+
+            this.month = {
+
+                ticker: data["Meta Data"]["2. Symbol"],
+                open: Number(data["Monthly Time Series"]["2018-05-31"]["1. open"]),
+
+                high_1: Number(data[this.monthlyTimeSeries][this.month_1][this.high]),
+                low_1: Number(data[this.monthlyTimeSeries][this.month_1][this.low]),
+                close_1: Number(data[this.monthlyTimeSeries][this.month_1][this.close]),
+                volume_1: Number(data[this.monthlyTimeSeries][this.month_1][this.volume]),
+
+                open_2: Number(data[this.monthlyTimeSeries][this.month_2][this.open]),
+                high_2: Number(data[this.monthlyTimeSeries][this.month_2][this.high]),
+                low_2: Number(data[this.monthlyTimeSeries][this.month_2][this.low]),
+                close_2: Number(data[this.monthlyTimeSeries][this.month_2][this.close]),
+                volume_2: Math.round(Number(data[this.monthlyTimeSeries][this.month_2][this.volume])),
+
+                open_3: Number(data[this.monthlyTimeSeries][this.today][this.open]),
+                high_3: Number(data[this.monthlyTimeSeries][this.today][this.high]),
+                low_3: Number(data[this.monthlyTimeSeries][this.today][this.low]),
+                close_3: Number(data[this.monthlyTimeSeries][this.today][this.close]),
+                volume_3: Number(data[this.monthlyTimeSeries][this.today][this.volume]),
+
+                mclose: "",
+                mlow: "",
+                mpullback: "",
+                gap: "",
+                mvolume: ""
+
+            }
+
+
+            var diff = this.month.close_2 * 0.0044;
+            var equate = diff + this.month.close_2;
+            var gap = equate.toFixed(2);
+            console.log("gap " + gap)
+
+            //Algorithm: ===========================================================================================
+            //Call pattern checks 3 candles. If candle 1 close & low is greater than candle 2 close & low and candle 2 close is less than candle 3 open.       
+
+            // Check if candle 1 low is greater than candle 2 low
+            if (this.month.low_1 > this.month.low_2) {
+                this.month.mlow = +1
+            } else {
+                this.month.mlow = 0
+            }
+
+            // Check if candle 2 close is less than candle 3 open
+            if (this.month.close_2 < this.month.open_3) {
+                this.month.mpullback = +1
+            } else {
+                this.month.mpullback = 0
+            }
+
+            //Check if candle 3 open is greater than or equal to candle close 2 with a gap of minimum 0.44%
+            if (gap >= this.month.open_3) {
+                this.month.gap = +1
+            } else {
+                this.month.gap = 0
+            }
+
+            //Check if volume is over 9 million
+            if (this.month.volume_2 > 90000) {
+                this.month.mvolume = +1
+            } else {
+                this.month.mvolume = +1
+                this.month.mvolume = 0
+            }
+
+            //Calculate Decision
+            var decision = +this.month.mpullback + +this.month.mlow + +this.month.gap + +this.month.mvolume;
+
+            if (decision == 4) {
+                console.log("Month Symbol Match Found! CALL " + this.month.ticker, this.month.mpullback, this.month.mlow, this.month.gap, this.month.mvolume + " Decision " + decision + " CALL <<<====================================")
+                this.monthSymbol.push(this.month.ticker);
+                $("#table").append(
+                    tr +
+                    td + this.month.ticker + tdC +
+                    td + "CALL " + tdC +
+                    td + "MONTH " + tdC +
+                    td + "FOUND SIGNAL " + tdC +
+                    trC
+                );
+
+            } else if (decision == 20) {
+                console.log("Month Symbol Match Found! " + this.month.ticker, this.month.mpullback, this.month.mlow, this.month.gap, this.month.mvolume, " Decision " + decision, " PUT <<<====================================")
+                this.monthSymbol.push(this.month.ticker);
+                $("#table").append(
+                    tr +
+                    td + this.month.ticker + tdC +
+                    td + "PUT " + tdC +
+                    td + "MONTH " + tdC +
+                    td + "FOUND SIGNAL " + tdC +
+                    trC
+                );
+
+            } else {
+                console.log("No Signal Found! " + this.month.ticker, this.month.mpullback, this.month.mlow, this.month.mclose, this.month.gap, this.month.mvolume, " Decision " + decision)
+            }
+
+        });
+    }
+
+    getDay() {
+
+        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
+
+            this.month = {
+
+                ticker: data["Meta Data"]["2. Symbol"],
+                open: Number(data["Monthly Time Series"]["2018-05-31"]["1. open"]),
+
+                high_1: Number(data[this.monthlyTimeSeries][this.month_1][this.high]),
+                low_1: Number(data[this.monthlyTimeSeries][this.month_1][this.low]),
+                close_1: Number(data[this.monthlyTimeSeries][this.month_1][this.close]),
+                volume_1: Number(data[this.monthlyTimeSeries][this.month_1][this.volume]),
+
+                open_2: Number(data[this.monthlyTimeSeries][this.month_2][this.open]),
+                high_2: Number(data[this.monthlyTimeSeries][this.month_2][this.high]),
+                low_2: Number(data[this.monthlyTimeSeries][this.month_2][this.low]),
+                close_2: Number(data[this.monthlyTimeSeries][this.month_2][this.close]),
+                volume_2: Math.round(Number(data[this.monthlyTimeSeries][this.month_2][this.volume])),
+
+                open_3: Number(data[this.monthlyTimeSeries][this.today][this.open]),
+                high_3: Number(data[this.monthlyTimeSeries][this.today][this.high]),
+                low_3: Number(data[this.monthlyTimeSeries][this.today][this.low]),
+                close_3: Number(data[this.monthlyTimeSeries][this.today][this.close]),
+                volume_3: Number(data[this.monthlyTimeSeries][this.today][this.volume]),
+
+                mclose: "",
+                mlow: "",
+                mpullback: "",
+                gap: "",
+                mvolume: ""
+
+            }
+
+
+            var diff = this.month.close_2 * 0.0044;
+            var equate = diff + this.month.close_2;
+            var gap = equate.toFixed(2);
+            console.log("gap " + gap)
+
+            //Algorithm: ===========================================================================================
+            //Call pattern checks 3 candles. If candle 1 close & low is greater than candle 2 close & low and candle 2 close is less than candle 3 open.       
+
+            // Check if candle 1 low is greater than candle 2 low
+            if (this.month.low_1 > this.month.low_2) {
+                this.month.mlow = +1
+            } else {
+                this.month.mlow = 0
+            }
+
+            // Check if candle 2 close is less than candle 3 open
+            if (this.month.close_2 < this.month.open_3) {
+                this.month.mpullback = +1
+            } else {
+                this.month.mpullback = 0
+            }
+
+            //Check if candle 3 open is greater than or equal to candle close 2 with a gap of minimum 0.44%
+            if (gap >= this.month.open_3) {
+                this.month.gap = +1
+            } else {
+                this.month.gap = 0
+            }
+
+            //Check if volume is over 9 million
+            if (this.month.volume_2 > 90000) {
+                this.month.mvolume = +1
+            } else {
+                this.month.mvolume = +1
+                this.month.mvolume = 0
+            }
+
+            //Calculate Decision
+            var decision = +this.month.mpullback + +this.month.mlow + +this.month.gap + +this.month.mvolume;
+
+            if (decision == 4) {
+                console.log("Month Symbol Match Found! CALL " + this.month.ticker, this.month.mpullback, this.month.mlow, this.month.gap, this.month.mvolume + " Decision " + decision + " CALL <<<====================================")
+                this.monthSymbol.push(this.month.ticker);
+                $("#table").append(
+                    tr +
+                    td + this.month.ticker + tdC +
+                    td + "CALL " + tdC +
+                    td + "MONTH " + tdC +
+                    td + "FOUND SIGNAL " + tdC +
+                    trC
+                );
+
+            } else if (decision == 20) {
+                console.log("Month Symbol Match Found! " + this.month.ticker, this.month.mpullback, this.month.mlow, this.month.gap, this.month.mvolume, " Decision " + decision, " PUT <<<====================================")
+                this.monthSymbol.push(this.month.ticker);
+                $("#table").append(
+                    tr +
+                    td + this.month.ticker + tdC +
+                    td + "PUT " + tdC +
+                    td + "MONTH " + tdC +
+                    td + "FOUND SIGNAL " + tdC +
+                    trC
+                );
+
+            } else {
+                console.log("No Signal Found! " + this.month.ticker, this.month.mpullback, this.month.mlow, this.month.mclose, this.month.gap, this.month.mvolume, " Decision " + decision)
+            }
+
         });
     }
 
