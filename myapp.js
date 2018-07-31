@@ -263,6 +263,7 @@ class Algo {
             if (this.decision == 1) {
                 this.watchList.push(this.sym) 
                 console.log(true)
+                console.log("added " + this.watchList + " to watchlist");
                 console.log(this.watchList);
             } else {
                 console.log(false)
@@ -329,6 +330,7 @@ class Algo {
                 console.log(true)
             } else {
                 console.log(false)
+                console.log("No signal found yet")
             }
 
         });
