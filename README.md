@@ -7,11 +7,11 @@ This web app is my first portfolio project. I am building a options trading sign
 
 
 The idea is simple. Find the trendlines of a stock using a outward-in approach. 
+ 
+Step 1. the user loads a list of stocks into the app
 
-Step 1. Find the trend for the monthly, weekly, and daily charts.
+Step 2. the app will use the algorithm to find uptrends and if found will add them to a watchlist
 
-Step 2. Add the stock symbol that are trending to a list.
+Step 3. the app will sort through the watchlist to find a pullback at the opening bell, if no pullback is found then the app will automatically sort through the watchlist each day until a pullback is found
 
-Step 3. Find the best entry and exit points for the stock.
-
-Step 4. Print out possibly limit orders.
+Step 4. when a pullback is found the app will print possible buy and sell limits to a table and save for the user to review 
