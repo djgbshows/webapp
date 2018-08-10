@@ -35,9 +35,9 @@ class Algo {
         this.watchList = [];
 
         // Present Time
-        this.currentTime = new Date.now().toString("h:mm:s")
-        this.presentTime = Date.now().toString("yyyy-MM-dd H:mm:ss");
-        this.timeCheck = Date.now().toString("H:mm");
+        this.currentTime = new Date.now().toString("hh:mm:ss")
+        this.presentTime = Date.now().toString("yyyy-MM-dd hh:mm:ss");
+        this.timeCheck = Date.now().toString("hh:mm:ss");
 
         //Api Key
         this.apiKey = "JSEZ8SK1RA528ZXU";
@@ -169,10 +169,10 @@ class Algo {
 
     // Check if the Stock Market is open or closed, 9:30am - 4pm est
     ifMarketHours() {
-        if (this.timeCheck > "09:30" || this.timeCheck < "16:00" && this.day != "Sat" || "Sun") {
-            console.log("Market Is closed, current time is " + this.currentTime + " but today is " + this.day);
+        if (this.timeCheck > "09:30:00" && this.timeCheck < "16:00:00" && this.day == "Sat" || this.day == "Sun") {
+            console.log("Market Is closed, current time is " + this.currentTime + " today is " + this.day);
         }
-        else if (this.timeCheck > "09:30" || this.timeCheck < "16:00") {
+        else if (this.timeCheck > "09:30:00" || this.timeCheck < "16:00:00" && this.day != "Sat" || "Sun") {
             console.log("Market Is Opened, current time is " + this.currentTime);
         }
         else {
@@ -261,10 +261,17 @@ class Algo {
 
             //If Stock is found then add it to a watchlist
             if (this.decision == 1) {
-                this.watchList.push(this.sym) 
+                this.watchList.push(this.sym)
                 console.log(true)
                 console.log("added " + this.watchList + " to watchlist");
                 console.log(this.watchList);
+                $('#table').append(
+                    "<tr> <td>" + this.sym + "</td>" +
+                    "<td>" + this.sym + "</td>" +
+                    "<td>" + this.sym + "</td>" +
+                    "<td>" + this.sym + "</td>" +
+                    "</tr>")
+
             } else {
                 console.log(false)
             }
@@ -336,4 +343,7 @@ class Algo {
         });
     }
 }
+
+
+
 

@@ -1,6 +1,7 @@
 <html>
 
 <head>
+
     <!-- Date.js -->
     <script type="text/javascript" src="date.js"></script>
 
@@ -21,6 +22,28 @@
 </head>
 
 <body>
+    <script>
+        $(document).ready(() => {
+            var symbols = []
+            var $button = $('#run')
+
+            $button.on('click', () => {
+                symbols.push($('#symbol').val())
+                alert(symbols[0])
+            })
+
+        })
+    </script>
+
+    <form class form>
+        Stock Symbol:
+        <br>
+        <input type='text' name="Stock" id="symbol">
+
+        <br>
+        <button type='text' name='Run' id=run>RUN</button>
+        </br>
+    </form>
 
     <div class="row">
         <div class="col-md-5 ">
@@ -34,7 +57,6 @@
             </table>
         </div>
     </div>
-
 
 </body>
 
