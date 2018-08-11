@@ -24,12 +24,9 @@
 <body>
     <script>
         $(document).ready(() => {
-            var symbols = []
             var $button = $('#run')
-
             $button.on('click', () => {
-                symbols.push($('#symbol').val())
-                alert(symbols[0])
+            new Algo()
             })
 
         })
@@ -41,7 +38,7 @@
         <input type='text' name="Stock" id="symbol">
 
         <br>
-        <button type='text' name='Run' id=run>RUN</button>
+        <button type='button' name='Run' id=run>RUN</button>
         </br>
     </form>
 
@@ -49,9 +46,9 @@
         <div class="col-md-5 ">
             <table border="2" cellpadding="10" width="100%" id="table">
                 <tr>
-                    <th>TICKER</th>
-                    <th>DAILY CALL</th>
-                    <th>WEEKLY CALL</th>
+                    <th>SYMBOL</th>
+                    <th>UP-TREND</th>
+                    <th>PULLBACK</th>
                     <th>SIGNAL</th>
                 </tr>
             </table>

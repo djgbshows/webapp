@@ -29,7 +29,7 @@ class Algo {
     constructor(sym) {
 
         // Stock Symbol
-        this.sym = sym;
+        this.sym = $('#symbol').val()
 
         //Watch List
         this.watchList = [];
@@ -52,12 +52,6 @@ class Algo {
         this.low = "3. low";
         this.close = "4. close";
         this.volume = "5. volume";
-
-        this.td = "<td>";
-        this.tdC = "</td>";
-        this.tr = "<tr>";
-        this.trC = "</tr>";
-        this.next = "";
 
         // Days
         this.day = Date.today().toString()[0] + Date.today().toString()[1] + Date.today().toString()[2];
@@ -196,14 +190,6 @@ class Algo {
         }
     }
 
-    init() {
-
-        this.ifWeekend()
-        this.ifHoliday()
-        this.ifMarketHours()
-        this.ifLastDayOfMonth()
-    }
-
     getMonth() {
 
         $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
@@ -230,11 +216,9 @@ class Algo {
                 close_3: Number(data[this.monthlyTimeSeries][this.today][this.close]),
                 volume_3: Number(data[this.monthlyTimeSeries][this.today][this.volume]),
 
-                mclose: "",
-                mlow: "",
-                mpullback: "",
-                gap: "",
-                mvolume: ""
+                uptrend: "",
+                pullback: "",
+                trend: ""
             }
 
             //Algorithm: ===========================================================================================
@@ -242,40 +226,46 @@ class Algo {
             //Check if candle 2 close is less than candle 3 open
 
 
-            // Check if candle 1 low is greater than candle 2 low
-            if (this.month.low_1 > this.month.low_2) {
-                this.month.mlow = +1
+            // Checking for a pullback
+            if (this.month.close_1 > this.month.open_2) {
+                this.month.pullback = +1
             } else {
-                this.month.mlow = 0
+                this.month.pullback = 0
             }
 
-            // Check if candle 2 close is less than candle 3 open
+            // Checkiing for a new uptrend
             if (this.month.close_2 < this.month.open_3) {
-                this.month.mpullback = +1
+                this.month.uptrend = +1
             } else {
-                this.month.mpullback = 0
+                this.month.uptrend = 0
             }
+
 
             //Calculate Decision
-            this.decision = +this.month.mpullback + +this.month.mlow;
+            this.decision = +this.month.pullback + +this.month.uptrend;
 
             //If Stock is found then add it to a watchlist
-            if (this.decision == 1) {
+            if (this.decision == 2) {
                 this.watchList.push(this.sym)
-                console.log(true)
                 console.log("added " + this.watchList + " to watchlist");
                 console.log(this.watchList);
+
                 $('#table').append(
                     "<tr> <td>" + this.sym + "</td>" +
-                    "<td>" + this.sym + "</td>" +
-                    "<td>" + this.sym + "</td>" +
+                    "<td>" + true + "</td>" +
+                    "<td> here </td>" +
                     "<td>" + this.sym + "</td>" +
                     "</tr>")
 
             } else {
-                console.log(false)
+                $('#table').append(
+                    "<tr> <td>" + this.sym + "</td>" +
+                    "<td>" + false + "</td>" +
+                    "<td>             </td>" +
+                    "<td>             </td>" +
+                    "</tr>")
             }
-        });
+        })
     }
 
     getDay() {
@@ -337,11 +327,25 @@ class Algo {
                 console.log(true)
             } else {
                 console.log(false)
-                console.log("No signal found yet")
+                console.log("No day signal found yet")
             }
 
         });
     }
+
+
+
+    init() {
+
+        this.ifWeekend()
+        this.ifHoliday()
+        this.ifMarketHours()
+        this.ifLastDayOfMonth()
+        this.getMonth()
+        //this.getDay()
+
+    }
+
 }
 
 
