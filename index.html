@@ -24,11 +24,10 @@
 <body>
     <script>
         $(document).ready(() => {
-            var $button = $('#run')
-            $button.on('click', () => {
-            new Algo()
+            
+            $('#run').on('click', () => {
+                new Algo()
             })
-
         })
     </script>
 
@@ -46,10 +45,8 @@
         <div class="col-md-5 ">
             <table border="2" cellpadding="10" width="100%" id="table">
                 <tr>
-                    <th>SYMBOL</th>
-                    <th>UP-TREND</th>
-                    <th>PULLBACK</th>
-                    <th>SIGNAL</th>
+                    <th>TRENDING</th>
+                    <th>NON TRENDING</th>
                 </tr>
             </table>
         </div>

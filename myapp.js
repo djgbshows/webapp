@@ -252,17 +252,13 @@ class Algo {
 
                 $('#table').append(
                     "<tr> <td>" + this.sym + "</td>" +
-                    "<td>" + true + "</td>" +
-                    "<td> here </td>" +
-                    "<td>" + this.sym + "</td>" +
+                    "<td> </td>" +
                     "</tr>")
 
             } else {
                 $('#table').append(
-                    "<tr> <td>" + this.sym + "</td>" +
-                    "<td>" + false + "</td>" +
-                    "<td>             </td>" +
-                    "<td>             </td>" +
+                    "<tr> <td> </td>" +
+                    "<td>" + this.sym + "</td>" +
                     "</tr>")
             }
         })
@@ -347,6 +343,7 @@ class Algo {
     }
 
 }
+
 
 
 
