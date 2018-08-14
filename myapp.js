@@ -251,14 +251,14 @@ class Algo {
                 console.log(this.watchList);
 
                 $('#table').append(
-                    "<tr> <td>" + this.sym + "</td>" +
-                    "<td> </td>" +
+                    "<tr> <td>" + this.sym.toUpperCase() + "</td>" +
+                    "<td> TRENDING </td>" +
                     "</tr>")
 
             } else {
                 $('#table').append(
-                    "<tr> <td> </td>" +
-                    "<td>" + this.sym + "</td>" +
+                    "<tr> <td>" + this.sym.toUpperCase() + "</td>" +
+                    "<td> NON-TRENDING </td>" +
                     "</tr>")
             }
         })
