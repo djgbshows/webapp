@@ -5,51 +5,144 @@
     <!-- Date.js -->
     <script type="text/javascript" src="date.js"></script>
 
+    <!--Options.css-->
+    <link rel="stylesheet" href="options.css">
     <!-- myapp.js -->
     <script src="myapp.js"></script>
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <!-- Bootstrap 3.3.7 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Bootstrap 4.1.3 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 
     <!-- Animate.js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
     <!-- or -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+
+
+
 </head>
 
 <body>
+
+
     <script>
         $(document).ready(() => {
-            
+
+            //refresh()
+
             $('#run').on('click', () => {
                 new Algo()
             })
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'radar',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "My First dataset",
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [0, 10, 5, 2, 20, 30, 45],
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+            var ctx = document.getElementById('myChart_2').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'bar',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "My First dataset",
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [0, 10, 5, 2, 20, 30, 45],
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
         })
     </script>
 
-    <form class form>
-        Stock Symbol:
-        <br>
-        <input type='text' name="Stock" id="symbol">
+    <!--header-->
+    <div class="container">
 
-        <br>
-        <button type='button' name='Run' id=run>RUN</button>
-        </br>
-    </form>
-
-    <div class="row">
-        <div class="col-md-5 ">
-            <table border="2" cellpadding="10" width="100%" id="table">
-                <tr>
-                    <th>STOCK</th>
-                    <th>TREND</th>
-                </tr>
-            </table>
+        <div class="col-sm-12">
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand">REAL-TIME INDICATOR</a>
+                <form class="form-inline">
+                    <input type="text" placeholder="Input Stock 'aapl'" id="symbol"></input>
+                    <button class="btn btn-primary my-2 my-sm-0" type="button" id="run">RUN</button>
+                </form>
+            </nav>
         </div>
+
+        <!--Row 1-->
+        <div class="row" id="row1">
+
+            <div class="col-sm-6" id="col" >
+                <h1 >
+                    <center id="data"></center>
+                </h1>
+
+            </div>
+
+            <div class="col-sm-3" id="col" >
+                <h1>
+                    <center id="stock"></center>
+                </h1>
+            </div>
+
+            <div class="col-sm-3" id="col" >
+                <h1>
+                    <center id="signal"></center>
+                </h1>
+            </div>
+
+
+        </div>
+
+        <!--Row 2-->
+        <div class="row">
+
+
+            <!--col 1-->
+            <div class="col-sm-8" id="col">
+                <canvas id="myChart_2" responsive="true" maintainAspectRatio="true"></canvas>
+            </div>
+
+            <!--Chart-->
+            <div class="col-sm-4" id="col">
+                <canvas id="myChart" responsive="true" maintainAspectRatio="true"></canvas>
+            </div>
+
+
+        </div>
+
     </div>
 
 </body>

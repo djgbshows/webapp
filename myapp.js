@@ -24,6 +24,10 @@
 
 //Algorithm ==============================================================================
 
+function refresh() {
+    setTimeout(function () { location.reload(); }, 3000);
+}
+
 class Algo {
 
     constructor(sym) {
@@ -188,15 +192,22 @@ class Algo {
         } else {
             console.log("month_2 is friday")
         }
+
     }
 
     getMonth() {
 
-        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
+
+
+        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data, status) => {
 
             this.month = {
 
+
+
                 ticker: data["Meta Data"]["2. Symbol"],
+
+
 
                 open: Number(data[this.monthlyTimeSeries][this.month_1][this.open]),
                 high_1: Number(data[this.monthlyTimeSeries][this.month_1][this.high]),
@@ -249,87 +260,84 @@ class Algo {
                 this.watchList.push(this.sym)
                 console.log("added " + this.watchList + " to watchlist");
                 console.log(this.watchList);
-
-                $('#table').append(
-                    "<tr> <td>" + this.sym.toUpperCase() + "</td>" +
-                    "<td> TRENDING </td>" +
-                    "</tr>")
-
             } else {
-                $('#table').append(
-                    "<tr> <td>" + this.sym.toUpperCase() + "</td>" +
-                    "<td> NON-TRENDING </td>" +
-                    "</tr>")
             }
+
+
+            $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.watchList[0] + "&apikey=" + this.apiKey, (data) => {
+
+                this.day = {
+
+                    ticker: data["Meta Data"]["2. Symbol"],
+
+                    open: Number(data[this.dailyTimeSeries][this.month_1][this.open]),
+                    high_1: Number(data[this.dailyTimeSeries][this.month_1][this.high]),
+                    low_1: Number(data[this.dailyTimeSeries][this.month_1][this.low]),
+                    close_1: Number(data[this.dailyTimeSeries][this.month_1][this.close]),
+                    volume_1: Number(data[this.dailyTimeSeries][this.month_1][this.volume]),
+
+                    open_2: Number(data[this.dailyTimeSeries][this.month_2][this.open]),
+                    high_2: Number(data[this.dailyTimeSeries][this.month_2][this.high]),
+                    low_2: Number(data[this.dailyTimeSeries][this.month_2][this.low]),
+                    close_2: Number(data[this.dailyTimeSeries][this.month_2][this.close]),
+                    volume_2: Math.round(Number(data[this.dailyTimeSeries][this.month_2][this.volume])),
+
+                    open_3: Number(data[this.dailyTimeSeries][this.today][this.open]),
+                    high_3: Number(data[this.dailyTimeSeries][this.today][this.high]),
+                    low_3: Number(data[this.dailyTimeSeries][this.today][this.low]),
+                    close_3: Number(data[this.dailyTimeSeries][this.today][this.close]),
+                    volume_3: Number(data[this.dailyTimeSeries][this.today][this.volume]),
+
+                    mclose: "",
+                    mlow: "",
+                    mpullback: "",
+                    gap: "",
+                    mvolume: ""
+                }
+
+                //Algorithm: ===========================================================================================
+                //Check if candle 1 high and lows are higher than candle 2
+                //Check if candle 2 close is less than candle 3 open
+
+
+                // Check if candle 1 low is greater than candle 2 low
+                if (this.day.low_1 > this.day.low_2) {
+                    this.day.mlow = +1
+                } else {
+                    this.day.mlow = 0
+                }
+
+                // Check if candle 2 close is less than candle 3 open
+                if (this.day.close_2 < this.day.open_3) {
+                    this.day.mpullback = +1
+                } else {
+                    this.day.mpullback = 0
+                }
+
+                //Calculate Decision
+                this.decision = +this.day.mpullback + +this.day.mlow;
+
+                if (this.decision == 2) {
+                    console.log(true, "signal found")
+                    $("#data").text("Company Data")
+                    $("#signal").text("BUY")
+                    $("#stock").text(this.watchList[0].toUpperCase())
+
+
+
+                } else {
+                    console.log(false, "No day signal found yet")
+                    $("#data").text("Company Data")
+                    $("#signal").text("Weak Signal")
+                    $("#stock").text(this.watchList[0])
+
+                }
+
+            });
+
+
         })
     }
-
-    getDay() {
-
-        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
-
-            this.month = {
-
-                ticker: data["Meta Data"]["2. Symbol"],
-
-                open: Number(data[this.dailyTimeSeries][this.month_1][this.open]),
-                high_1: Number(data[this.dailyTimeSeries][this.month_1][this.high]),
-                low_1: Number(data[this.dailyTimeSeries][this.month_1][this.low]),
-                close_1: Number(data[this.dailyTimeSeries][this.month_1][this.close]),
-                volume_1: Number(data[this.dailyTimeSeries][this.month_1][this.volume]),
-
-                open_2: Number(data[this.dailyTimeSeries][this.month_2][this.open]),
-                high_2: Number(data[this.dailyTimeSeries][this.month_2][this.high]),
-                low_2: Number(data[this.dailyTimeSeries][this.month_2][this.low]),
-                close_2: Number(data[this.dailyTimeSeries][this.month_2][this.close]),
-                volume_2: Math.round(Number(data[this.dailyTimeSeries][this.month_2][this.volume])),
-
-                open_3: Number(data[this.dailyTimeSeries][this.today][this.open]),
-                high_3: Number(data[this.dailyTimeSeries][this.today][this.high]),
-                low_3: Number(data[this.dailyTimeSeries][this.today][this.low]),
-                close_3: Number(data[this.dailyTimeSeries][this.today][this.close]),
-                volume_3: Number(data[this.dailyTimeSeries][this.today][this.volume]),
-
-                mclose: "",
-                mlow: "",
-                mpullback: "",
-                gap: "",
-                mvolume: ""
-            }
-
-            //Algorithm: ===========================================================================================
-            //Check if candle 1 high and lows are higher than candle 2
-            //Check if candle 2 close is less than candle 3 open
-
-
-            // Check if candle 1 low is greater than candle 2 low
-            if (this.month.low_1 > this.month.low_2) {
-                this.month.mlow = +1
-            } else {
-                this.month.mlow = 0
-            }
-
-            // Check if candle 2 close is less than candle 3 open
-            if (this.month.close_2 < this.month.open_3) {
-                this.month.mpullback = +1
-            } else {
-                this.month.mpullback = 0
-            }
-
-            //Calculate Decision
-            this.decision = +this.month.mpullback + +this.month.mlow;
-
-            if (this.decision == 2) {
-                console.log(true)
-            } else {
-                console.log(false)
-                console.log("No day signal found yet")
-            }
-
-        });
-    }
-
-
 
     init() {
 
