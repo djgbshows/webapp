@@ -1,4 +1,10 @@
+#stock{
+    float: right;
+    padding-top: 8%;
+    font-size: 40px;
+    font-family:fantasy;
 
+}
 
 #col{
     border-style: outset;
@@ -12,4 +18,11 @@
 
 #row1{
     height:25%
+}
+
+#logo{
+    height:80; 
+    width:75;
+    float: left;
+    padding-top: 3%;
 }
