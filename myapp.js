@@ -201,8 +201,13 @@ class Algo {
 
         $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data, status) => {
 
-            this.month = {
+            if (data.Information) {
+                console.log("rate limit hit for "+ this.sym+ " Please use another symbol")
+                alert("Rate limit has been reached for "+ this.sym.toUpperCase() + " Please check your list for previously checked symbols. Use another stock symbol")
+            }
 
+
+            this.month = {
 
 
                 ticker: data["Meta Data"]["2. Symbol"],
@@ -264,9 +269,9 @@ class Algo {
             }
 
 
-            $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.watchList[0] + "&apikey=" + this.apiKey, (data) => {
+            $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
 
-                this.day = {
+                this.now = {
 
                     ticker: data["Meta Data"]["2. Symbol"],
 
@@ -301,27 +306,27 @@ class Algo {
 
 
                 // Check if candle 1 low is greater than candle 2 low
-                if (this.day.low_1 > this.day.low_2) {
-                    this.day.mlow = +1
+                if (this.now.low_1 > this.now.low_2) {
+                    this.now.mlow = +1
                 } else {
-                    this.day.mlow = 0
+                    this.now.mlow = 0
                 }
 
                 // Check if candle 2 close is less than candle 3 open
-                if (this.day.close_2 < this.day.open_3) {
-                    this.day.mpullback = +1
+                if (this.now.close_2 < this.now.open_3) {
+                    this.now.mpullback = +1
                 } else {
-                    this.day.mpullback = 0
+                    this.now.mpullback = 0
                 }
 
                 //Calculate Decision
-                this.decision = +this.day.mpullback + +this.day.mlow;
+                this.decision = +this.now.mpullback + +this.now.mlow;
 
                 if (this.decision == 2) {
                     console.log(true, "signal found")
                     $("#data").text("Company Data")
                     $("#signal").text("BUY")
-                    $("#stock").text(this.watchList[0].toUpperCase())
+                    $("#stock").text(this.sym.toUpperCase())
 
 
 
@@ -329,7 +334,7 @@ class Algo {
                     console.log(false, "No day signal found yet")
                     $("#data").text("Company Data")
                     $("#signal").text("Weak Signal")
-                    $("#stock").text(this.watchList[0])
+                    $("#stock").text(this.sym.toUpperCase())
 
                 }
 
