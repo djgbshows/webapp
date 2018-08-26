@@ -196,10 +196,11 @@ class Algo {
     }
 
     getLogo() {
-        $.get("https://api.iextrading.com/1.0/stock/"+this.sym+"/logo", function (data, status) {
-        console.log(data.url)
-        $("img#logo").attr('src' , data.url);
-    })
+        $.get("https://api.iextrading.com/1.0/stock/" + this.sym + "/logo", function (data, status) {
+            console.log(data.url)
+            $("img#logo").attr('src', data.url);
+        })
+
     }
 
     getMonth() {
@@ -207,12 +208,9 @@ class Algo {
         $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data, status) => {
 
             if (data.Information) {
-                console.log("rate limit hit for "+ this.sym+ " Please use another symbol")
-                alert("Rate limit has been reached for "+ this.sym.toUpperCase() + " Please check your list for previously checked symbols. Use another stock symbol")
+                console.log("rate limit hit for " + this.sym + " Please use another symbol")
+                alert("Rate limit has been reached for " + this.sym.toUpperCase() + " Please check your list for previously checked symbols. Use another stock symbol")
             }
-
-            
-
 
             this.month = {
 
