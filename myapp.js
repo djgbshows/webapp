@@ -329,34 +329,33 @@ class Algo {
 
                 if (this.decision == 2) {
                     console.log(true, "signal found")
-                    $("#data").text("Company Data")
-                    $("#signal").text("BUY")
+                    $(".data").text("Company Data")
+                    $(".signal").text("BUY")
                     $("#stock").text(this.sym.toUpperCase())
 
 
 
                 } else {
                     console.log(false, "No day signal found yet")
-                    $("#data").text("Company Data")
-                    $("#signal").text("Weak Signal")
+                    $(".data").text("Company Data")
+                    $(".signal").text("Weak Signal")
                     $("#stock").text(this.sym.toUpperCase())
 
                 }
 
             });
 
-
         })
     }
 
     init() {
 
+        this.getLogo()
         this.ifWeekend()
         this.ifHoliday()
         this.ifMarketHours()
         this.ifLastDayOfMonth()
         this.getMonth()
-        this.getLogo()
 
     }
 

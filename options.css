@@ -3,12 +3,12 @@
     padding-top: 8%;
     font-size: 40px;
     font-family:fantasy;
-
+    padding-right: 20%;
 }
 
 #col{
-    border-style: outset;
-    border-radius: 5%;
+    border-style: solid;
+    padding: 30px
 }
 
 #table{
@@ -16,13 +16,31 @@
     border-radius: 5%;
 }
 
-#row1{
+#row1h{
     height:25%
 }
 
-#logo{
-    height:80; 
-    width:75;
+#logjo{
+    height:60px; 
+    width:250px;
     float: left;
     padding-top: 3%;
+}
+
+#text{
+    font-family:fantasy;
+    font-size: 40px;
+    padding-top: 8%;
+}
+
+#data{
+    font-family:fantasy;
+    font-size: 40px;
+    padding-top: 8%;
+}
+
+#signal{
+    font-family:fantasy;
+    font-size: 40px;
+    padding-top: 8%;
 }
