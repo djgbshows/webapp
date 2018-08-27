@@ -93,6 +93,8 @@
 
                 // Configuration options go here
                 options: {}
+
+
             });
         })
     </script>
@@ -101,23 +103,27 @@
 
         <!--Row 1-->
         <div class="row">
-            <div class="col-sm-8">
-                <a>
-                    <h4>GOD INDICATOR</h4>
-                </a>
+            <div class="col-sm-4">
+                <h4 id="header_logo">GOD INDICATOR</h4>
             </div>
 
             <div class="col-sm-4">
                 <input type="input" placeholder="Input Stock 'aapl'" id="symbol"></input>
-                <button class="btn btn-primary my-2 my-sm-0" type="button" id="run">RUN</button>
             </div>
+
+            <div class="col-sm-4">
+                <button class="btn btn-primary btn-md" type="button" id="run">RUN</button>
+            </div>
+
         </div>
 
         <!--Row 2-->
         <div class="row" id="row1">
 
             <div class="col-sm-4" id="col">
-                <center><img src="https://storage.googleapis.com/iex/api/logos/AAPL.png" id="logo"></center>
+                <center>
+                    <img src="https://storage.googleapis.com/iex/api/logos/AAPL.png" id="logo">
+                </center>
             </div>
 
             <div class="col-sm-4" id="col">

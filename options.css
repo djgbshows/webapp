@@ -44,3 +44,19 @@
     font-size: 40px;
     padding-top: 8%;
 }
+
+#run{
+    float: right;
+    width: 350px;
+    margin: 10;
+    height: 40px;
+}
+
+#symbol{
+    width: 300px;
+    margin: 10;
+}
+
+#header_logo{
+    margin: 10;
+}
