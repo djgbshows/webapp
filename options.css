@@ -6,7 +6,7 @@
     padding-right: 20%;
 }
 
-#col{
+.col-sm-4 {
     border-style: solid;
     padding: 30px
 }
@@ -16,8 +16,8 @@
     border-radius: 5%;
 }
 
-#row1h{
-    height:25%
+h1{
+    font-size:relative;
 }
 
 #logjo{
@@ -35,28 +35,30 @@
 
 #data{
     font-family:fantasy;
-    font-size: 40px;
     padding-top: 8%;
 }
 
 #signal{
     font-family:fantasy;
-    font-size: 40px;
     padding-top: 8%;
 }
 
 #run{
     float: right;
-    width: 350px;
-    margin: 10;
-    height: 40px;
 }
 
-#symbol{
-    width: 300px;
-    margin: 10;
+.table{
+    width: relative;
 }
 
 #header_logo{
     margin: 10;
+}
+
+.col-sm-4{
+
+}
+
+.row{
+    margin:1%;
 }
