@@ -11,20 +11,28 @@
     padding: 30px
 }
 
-#table{
-    border-style: outset;
-    border-radius: 5%;
+table{
+    border-style: inset;
+}
+
+th, 
+td{
+    border-style: double;
+}
+
+th,
+#shade
+{
+    background-color: lightgrey;
 }
 
 h1{
     font-size:relative;
 }
 
-#logjo{
-    height:60px; 
-    width:250px;
-    float: left;
-    padding-top: 3%;
+#logo{
+    height:150px; 
+    width:200px;
 }
 
 #text{
@@ -47,16 +55,8 @@ h1{
     float: right;
 }
 
-.table{
-    width: relative;
-}
-
 #header_logo{
     margin: 10;
-}
-
-.col-sm-4{
-
 }
 
 .row{
