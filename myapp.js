@@ -28,6 +28,8 @@ function wait() {
     setTimeout(function () { }, 3000);
 }
 
+
+
 class Algo {
 
     constructor(sym) {
@@ -219,16 +221,18 @@ class Algo {
 
         $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data, status) => {
 
+
+            //Check for errors
             if (data.Information) {
                 console.log("rate limit hit for " + this.sym + " Please use another symbol")
                 alert("Rate limit has been reached for " + this.sym.toUpperCase() + " Please check your list for previously checked symbols. Use another stock symbol")
             } else {
             }
 
+            //Update html analyze stock
             $("#analyzeStock").text("COMPLETE")
 
-
-
+            //Get ohlc data
             this.month = {
 
                 ticker: data["Meta Data"]["2. Symbol"],
@@ -249,17 +253,10 @@ class Algo {
                 high_3: Number(data[this.monthlyTimeSeries][this.today][this.high]),
                 low_3: Number(data[this.monthlyTimeSeries][this.today][this.low]),
                 close_3: Number(data[this.monthlyTimeSeries][this.today][this.close]),
-                volume_3: Number(data[this.monthlyTimeSeries][this.today][this.volume]),
-
-                uptrend: "",
-                pullback: "",
-                trend: ""
+                volume_3: Number(data[this.monthlyTimeSeries][this.today][this.volume])
             }
 
-
-
-            //Algorithm: ==========================================================================================
-
+            //Limit order formulas
             this.sellLimit = Number(this.month.high_2 - this.month.low_2 + this.month.close_2) - .05;
             this.buyLimit = Number(this.month.high_2 - (this.month.high_2 - this.month.close_2) - .6);
             this.downtrendSellLimit = Number(this.month.close_2 - (this.month.high_2 - this.month.low_2));
@@ -267,22 +264,27 @@ class Algo {
 
             console.log(this.sellLimit.toFixed(2));
             console.log(this.buyLimit)
+            //Algorithm: ==========================================================================================
 
             // Checking for the trend
 
-            // if uptrend
+            // if uptrend ========================================================================
             if (this.month.close_1 > this.month.open_2 && this.month.close_2 < this.month.open_3) {
-                console.log("uptrend found")
+                console.log("uptrend found" + this.uptrendSellLimit)
 
-                //If Stock is found then add it to a watchlist
-
+                //Update html Condition
                 $("#condition").text("uptrend found")
-                $("#monthFormula").text("Monthly Sell Limit ", this.sellLimit)
 
+                //Update html Monthly Limit
+                $("#monthFormula").text("this.sellLimit")
+
+                // Adding to watchlist
                 this.watchList.push(this.sym)
                 console.log("added " + this.watchList + " to watchlist");
 
 
+
+                //Monthly timeframe api call=======================================================================================
                 $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
 
                     this.now = {
@@ -365,19 +367,29 @@ class Algo {
                     }
 
                 });
-            }
 
 
 
-            // if downtrend
-            if (this.month.close_1 < this.month.open_2 && this.month.close_2 > this.month.open_3) {
-                $("#condition").text("DOWNTREND");
-                $("#results").text("BUY " + this.downtrendBuyLimit + " SELL " + this.downtrendSellLimit)
+                //if Downtrend ========================================================================   
+            } else if (this.month.close_1 < this.month.open_2 && this.month.close_2 > this.month.open_3) {
                 console.log("downtrend found " + this.downtrendSellLimit);
 
+                //Update html Condition
+                $("#condition").text("DOWNTREND");
 
+                //Update html Monthly Limit
+                $("#monthFormula").text(this.downtrendSellLimit.toFixed(2))
+
+                // Adding to watchlist
+                this.watchList.push(this.sym)
+                console.log("added " + this.watchList + " to watchlist");
+
+
+
+                //Daily timeframe api call=======================================================================================
                 $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
 
+                    //Get ohlc data
                     this.now = {
 
                         ticker: data["Meta Data"]["2. Symbol"],

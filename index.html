@@ -21,6 +21,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
+
     <!-- Animate.js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
     <!-- or -->
@@ -49,7 +50,6 @@
     <script>
         $(document).ready(() => {
 
-            //refresh()
 
             $('#run').on('click', () => {
                 new Algo()
@@ -61,16 +61,37 @@
     <!--Row 1-->
     <div class="row">
 
-        <!--Input Box & Run Button-->
+        <!--Col 1 Input Box & Run Button-->
         <div class="col-sm-4 data">
-            <input type="input" placeholder="Input Stock 'aapl'" id="symbol"></input>
-            <button class="btn btn-primary btn-lg" type="button" id="run">RUN</button>
+
+            <div class="row">
+                <!--Input box-->
+                <div class="col-sm-6">
+                    <input type="input" placeholder="Input Stock 'aapl'" id="symbol"></input>
+                </div>
+
+                <!--Run Button-->
+                <div class="col-sm-6">
+                    <button class="btn btn-primary btn-lg" type="button" id="run">RUN</button>
+                </div>
+            </div>
+
+            <!--Logo-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <center>
+                        <img src="https://storage.googleapis.com/iex/api/logos/AAPL.png" id="logo">
+                    </center>
+                </div>
+            </div>
+
+
         </div>
 
-        <!--Checklist-->
-        <div class="col-sm-4" id="bground">
+        <!--Col 2 Checklist-->
+        <div class="col-sm-4">
 
-            <!--Analyze Stock-->
+            <!-- Row 1 Analyze Stock-->
             <div class="row">
 
                 <div class="col-sm-6">
@@ -83,7 +104,7 @@
 
             </div>
 
-            <!--Condition-->
+            <!-- Row 2 Market Condition-->
             <div class="row">
 
                 <div class="col-sm-6">
@@ -109,78 +130,79 @@
 
             </div>
 
-            <!-- Results-->
+        </div>
+
+        <!--Col 3 Limit Orders-->
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Monthly Limit:</p>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5 id="monthFormula"></h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Daily Limit:</p>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5 id="dayFormula"></h5>
+                </div>
+
+            </div>
+
             <div class="row">
 
-                <div class="col-sm-6">
-                    <p>Results: </p>
-                </div>
 
-                <div class="col-sm-6">
-                    <p id="results"></p>
+                <div class="col-sm-12">
+                    <center>
+                        <h1 id="signal"></h1>
+                    </center>
                 </div>
-
             </div>
 
         </div>
 
-        <!--Limit Orders-->
-        <div class="col-sm-4" id="col">
-
-            <div class="row">
-                <h4 id="monthFormula"></h4>
-            </div>
-
-            <div class="row">
-                <h4 id="dayFormula"></h4>
-            </div>
-
-            <div class="row">
-                <h1 id="signal"></h1>
-            </div>
-
-        </div>
     </div>
 
     <!--Row 2-->
-    <div class="row">
-        <div class="col-sm-8">
+    <div class="container-full">
+        <div class="row">
 
-            <!--Data Table-->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Symbol</th>
-                        <th>Date</th>
+            <div class="col-sm-12">
 
-                        <th>M-1 Close</th>
-                        <th>M-2 Open</th>
-                        <th>M-2 Close</th>
-                        <th>M-3 Open</th>
-                        <th>M-1 Low</th>
-                        <th>M-2 Low</th>
+                <!--Data Table-->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Date</th>
 
-                        <th>D-1 Close</th>
-                        <th>D-2 Open</th>
-                        <th>D-2 Close</th>
-                        <th>D-3 Open</th>
-                        <th>D-1 Low</th>
-                        <th>D-2 Low</th>
+                            <th>M-1 Close</th>
+                            <th>M-2 Open</th>
+                            <th>M-2 Close</th>
+                            <th>M-3 Open</th>
+                            <th>M-1 Low</th>
+                            <th>M-2 Low</th>
 
-                    </tr>
-                </thead>
+                            <th>D-1 Close</th>
+                            <th>D-2 Open</th>
+                            <th>D-2 Close</th>
+                            <th>D-3 Open</th>
+                            <th>D-1 Low</th>
+                            <th>D-2 Low</th>
 
-            </table>
+                        </tr>
+                    </thead>
 
+                </table>
+
+            </div>
         </div>
-
-        <!--Stock Logo-->
-        <div class="col-sm-4">
-            <center>
-                <img src="https://storage.googleapis.com/iex/api/logos/AAPL.png" id="logo">
-            </center>
-        </div>
-
     </div>
 
 
