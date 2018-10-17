@@ -1,6 +1,14 @@
-//notes
-//Do not trade all time highs or low, they are very unpredictable
-//formula for buy limit is high - (open - low)
+/*notes
+Do not trade all time highs or low, they are very unpredictable
+formula for buy limit is high - (open - low)
+look for lower low and lower highs, vise versa. 1 & 2 have to be in a confirmed trend before 3 starts 
+
+my pattern must use a 3 step setup, 2 bars trending then the 3rd bar reversing, never use 2 bars trending in 1 direction then the 3rd bar going in thr same direction. This is unpredicatable and formulas will not compute correctly
+
+Pattern is bars 1 & 2 are trending in a direction. Bar 3 open is gapped up or down in the opposite direction which is a string sign of a reversal. 
+
+
+ */
 
 
 function progress(percent, text, id) {
@@ -39,10 +47,14 @@ class Algo {
         //Watch List
         this.watchList = [];
 
+        //Market Hours
+        this.MarketHours = "unknown"
+
         // Present Time
         this.currentTime = new Date.now().toString("hh:mm:ss")
         this.presentTime = Date.now().toString("yyyy-MM-dd hh:mm:ss");
-        this.timeCheck = Date.now().toString("hh:mm:ss");
+        this.timeCheck = Date.now().toString("HH:MM:ss");
+
 
         //Api Key
         this.apiKey = "JSEZ8SK1RA528ZXU";
@@ -99,49 +111,65 @@ class Algo {
     // Check if the Stock Market is open or closed, 9:30am - 4pm est
     ifMarketHours() {
 
+        //If opened
         if (this.timeCheck > "09:30:00" && this.timeCheck < "16:00:00") {
+
+            this.MarketHours = 'opened';
+
+            if (this.MarketHours == "opened" && Date.today().is().monday()) {
+
+                this.day_2 = Date.today().add(-4).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-5).days().toString("yyyy-MM-dd");
+            }
+
             console.log("Market Is Opened, current time is " + this.currentTime);
-        }
 
-        else {
+            //If closed
+        } else {
 
-            console.log("Market is closed, will revert to 3:50pm yesterday for testing purposes");
+            this.MarketHours = 'closed';
 
-            if (Date.today().is().monday()) {
+            if (this.MarketHours == "closed" && Date.today().is().monday()) {
 
                 this.today = Date.today().add(-3).days().toString("yyyy-MM-dd");
                 this.day_2 = Date.today().add(-4).days().toString("yyyy-MM-dd");
                 this.day_3 = Date.today().add(-5).days().toString("yyyy-MM-dd");
 
-            } else if (Date.today().is().tuesday()) {
+            } else if (this.MarketHours == "closed" && Date.today().is().tuesday()) {
 
-                this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
-                this.day_2 = Date.today().add(-4).days().toString("yyyy-MM-dd");
-                this.day_3 = Date.today().add(-5).days().toString("yyyy-MM-dd");
+                this.day_2 = Date.today().add(-1).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
 
-            } else if (Date.today().is().wednesday()) {
+            } else if (this.MarketHours == "closed" && Date.today().is().wednesday()) {
 
+                this.day_2 = Date.today().add(-1).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+
+            } else if (this.MarketHours == "closed" && Date.today().is().thursday()) {
+
+                this.day_2 = Date.today().add(-1).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+
+            } else if (this.MarketHours == "closed" && Date.today().is().friday()) {
+
+                this.day_2 = Date.today().add(-1).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+
+            }
+            //if time is past midnight but before opening bell
+            //TESTING PURPOSES!!!======================================
+            if (this.timeCheck > "00:00:00" && this.timeCheck < "09:30:00") {
                 this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
                 this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
                 this.day_3 = Date.today().add(-5).days().toString("yyyy-MM-dd");
-
-            } else if (Date.today().is().thursday()) {
-
-                this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
-                this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
-                this.day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
-
-            } else if (Date.today().is().friday()) {
-
-                this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
-                this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
-                this.day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
 
             }
 
-            this.presentTime = new Date.now().toString(this.today + " 15:50:00");
+            this.presentTime = new Date.now().toString(this.today + " 16:00:00");
+
+            console.log("Market is closed, will revert to 4:00 pm yesterday for testing purposes");
             console.log(this.presentTime)
-            console.log(this.today, this.day_2, this.day_3)
+            console.log("Today " + this.today, "Day 2 " + this.day_2, "Day 3 " + this.day_3)
         }
 
         progress("40%", "40% COMPLETE")
@@ -280,12 +308,12 @@ class Algo {
             //Update html analyze stock
             progressCol2("#analyzeStock");
 
-            //Get ohlc data
+            //Get MONTH ohlc data
             this.month = {
 
                 ticker: data["Meta Data"]["2. Symbol"],
 
-                open: Number(data[this.monthlyTimeSeries][this.month_1][this.open]),
+                open_1: Number(data[this.monthlyTimeSeries][this.month_1][this.open]),
                 high_1: Number(data[this.monthlyTimeSeries][this.month_1][this.high]),
                 low_1: Number(data[this.monthlyTimeSeries][this.month_1][this.low]),
                 close_1: Number(data[this.monthlyTimeSeries][this.month_1][this.close]),
@@ -305,44 +333,39 @@ class Algo {
             }
 
             //Limit order formulas
-            this.sellLimit = (Number(this.month.high_2 - this.month.low_2 + this.month.close_2) - .05).toFixed(2);
-            this.buyLimit = (Number(this.month.high_2 - (this.month.high_2 - this.month.close_2) - .6)).toFixed(2);
-            this.downtrendSellLimit = Number(this.month.close_2 - (this.month.high_2 - this.month.low_2));
-            this.downtrendBuyLimit = Number(this.month.close_2 - (this.month.high_2 - this.month.low_2));
+            //Uptrend
+            this.uptrend_Buy = (Number(this.month.open_3).toFixed(2));
+            this.uptrend_Sell = (Number(this.month.high_2 - this.month.low_2 + this.month.close_2) - .05).toFixed(2);
 
-            console.log("buy limit ", this.buyLimit)
+            //Downtrend
+            this.downtrend_Buy = (Number(this.month.open_3)).toFixed(2);
+            this.downtrend_Sell = Number(this.month.close_2 - (this.month.high_2 - this.month.low_2) * 0.1).toFixed(2);
 
+            console.log("uptrend buy " + this.uptrend_Buy)
+            console.log("uptrend sell " + this.uptrend_Sell)
+            console.log("downtrend buy " + this.downtrend_Buy)
+            console.log("downtrend sell " + this.downtrend_Sell)
 
-            // Chcking for uptrend
-            if (this.month.close_1 > this.month.open_2 && this.month.close_2 < this.month.open_3) {
-                console.log("uptrend found " + this.sellLimit)
+            // Checking for uptrend
+            if (this.month.high_1 && this.month.low_1 && this.month.close_1 > this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 < this.month.open_3) {
 
                 //Update html Monthly Limit
-                $("#monthFormula").text(this.sellLimit)
+                $("#monthFormula").text(this.uptrend_Sell)
 
                 // Adding to watchlist
                 this.watchList.push(this.sym)
                 console.log("added " + this.watchList + " to watchlist");
+                console.log("uptrend found " + this.sellLimit)
 
 
-
-                //Monthly timeframe api call=======================================================================================
+                //Daily timeframe api call=======================================================================================
                 $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
-                    console.log(data);
-                    console.log(Number(data[this.dailyTimeSeries][this.day_3][this.open])
-                    );
-
-                    console.log(data[this.dailyTimeSeries])
-                    console.log(data[this.dailyTimeSeries][this.day_3])
-                    console.log(data[this.dailyTimeSeries][this.day_3][this.open])
-
-
 
                     this.now = {
 
                         ticker: data["Meta Data"]["2. Symbol"],
 
-                        open: Number(data[this.dailyTimeSeries][this.day_3][this.open]),
+                        open_1: Number(data[this.dailyTimeSeries][this.day_3][this.open]),
                         high_1: Number(data[this.dailyTimeSeries][this.day_3][this.high]),
                         low_1: Number(data[this.dailyTimeSeries][this.day_3][this.low]),
                         close_1: Number(data[this.dailyTimeSeries][this.day_3][this.close]),
@@ -366,56 +389,31 @@ class Algo {
                         gap: "",
                         mvolume: ""
                     }
+                  
+                    //Uptrend
+                    this.uptrend_day_Buy = (Number(this.now.open_3).toFixed(2));
+                    this.uptrend_day_Sell = (Number(this.now.high_2 - this.now.low_2 + this.now.close_2) - .05).toFixed(2);
 
-                    //Algorithm: ===========================================================================================
-                    //Check if candle 1 high and lows are higher than candle 2
-                    //Check if candle 2 close is less than candle 3 open
-
-
-                    if (this.now.close_1 > this.now.open_2 && this.now.low_1 < this.now.low_2) {
-                        this.now.mtrend = +1
-                        this.trend = "UP"
-                    } else {
-                        this.now.mtrend = 0
-                        this.trend = "DOWN"
-
-                    }
-
-                    // Check if candle 2 close is less than candle 3 open
-                    if (this.now.close_2 < this.now.open_3 && this.now.low_2 < this.now) {
-                        this.now.mpullback = +1
-                        this.reversal = "TRUE"
-                    } else {
-                        this.now.mpullback = 0
-                        this.reversal = "FALSE"
-                    }
-
-                    //Calculate Decision
-                    this.ddecision = +this.now.mpullback + +this.now.mtrend;
-
-                    if (this.ddecision && this.mdecision == 2) {
+                    if (this.now.high_1 && this.now.low_1 && this.now.close_1 > this.now.high_2 && this.now.low_2 && this.now.close_2 && this.now.close_2 < this.now.open_3) {
 
                         $("#checkSetup").text("check")
-
-                        console.log(true, "signal found")
-
+                        $("#dayFormula").text(this.uptrend_day_Buy)
                         this.signal = "BUY"
 
-                        $("$signal").text("BUY")
+                        console.log(true, "signal found")
 
                         $("#stock").text(this.sym.toUpperCase())
 
                         $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</td> <td>" + this.trend + "</td> <td>" + this.reversal + "</td> <td>" + this.signal + "</tr>")
 
-
-
                     } else {
 
-                        $("#checkSetup").text("WAIT")
+                        $("#dayFormula").text(this.uptrend_day_Buy)
+                        $("#checkSetup").text("100% COMPLETE")
                         console.log(false, "No day signal found yet")
                         this.signal = "WAIT"
 
-                        $("#signal").text("WAIT")
+                        $("#signal").text("WAIT FOR NEXT SIGNAL")
                         $("#stock").text(this.sym.toUpperCase())
 
                         $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</tr>")
@@ -425,21 +423,21 @@ class Algo {
 
 
 
-                //if Downtrend ========================================================================   
-            } else if (this.month.close_1 < this.month.open_2 && this.month.close_2 > this.month.open_3) {
-                console.log("downtrend found " + this.downtrendSellLimit);
+                //Checking for downtrend    
+            }
 
+            // Checking for downtrend
+            else if (this.month.high_1 && this.month.low_1 && this.month.close_1 < this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 > this.month.open_3) {
                 //Update html Condition
                 progressCol2("#condition")
 
                 //Update html Monthly Limit
-                $("#monthFormula").text(this.downtrendSellLimit.toFixed(2))
+                $("#monthFormula").text(this.downtrend_Buy)
 
                 // Adding to watchlist
                 this.watchList.push(this.sym)
                 console.log("added " + this.watchList + " to watchlist");
-
-
+                console.log("downtrend found " + this.downtrend_Buy);
 
                 //Daily timeframe api call=======================================================================================
                 $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
@@ -449,7 +447,7 @@ class Algo {
 
                         ticker: data["Meta Data"]["2. Symbol"],
 
-                        open: Number(data[this.dailyTimeSeries][this.day_3][this.open]),
+                        open_1: Number(data[this.dailyTimeSeries][this.day_3][this.open]),
                         high_1: Number(data[this.dailyTimeSeries][this.day_3][this.high]),
                         low_1: Number(data[this.dailyTimeSeries][this.day_3][this.low]),
                         close_1: Number(data[this.dailyTimeSeries][this.day_3][this.close]),
@@ -515,19 +513,10 @@ class Algo {
                 $("#signal").text("BAD APPLE")
                 $("#results").text("BUY " + this.downtrendBuyLimit, "SELL " + this.downtrendSellLimit)
             }
-
-
-
-
             //If Stock is found then add it to a watchlist
-
-
         })
 
         progress("100%", "100% COMPLETE")
-
-
-
     }
 
     init() {
