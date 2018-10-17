@@ -1,34 +1,33 @@
+//notes
+//Do not trade all time highs or low, they are very unpredictable
+//formula for buy limit is high - (open - low)
 
-// Options Web Application
-// The ideal is to create a website that finds the best possible entry and exit points for a stock option
 
-// use thinkorswim to scan for stocks that meet my parameters
-/* candidates for stocks 
-   upcoming earnings report
-   high volume
-   high market cap */
+function progress(percent, text, id) {
 
-/*Algorithm:
-  Focus on uptrending stock options
-  check for trends in the year, month, week, & day timeframes
-  look at 52 week high
-  unusual volume with in the past #x days
-  look for gaps in price on open
-*/
+    //Reset progress bar back to 0%
+    $("#symbol").click(function () {
+        $(".progress-bar").css("width", "0%").text("0% COMPLETE")
+    })
 
-/* Print out 
-  entry and exit limit orders
-  contract time frames
-  best strategy
- */
+    //Expand main progress bar to desired length
+    $(".progress-bar").css("width", percent).text(text);
 
-//Algorithm ==============================================================================
-
-function wait() {
-    setTimeout(function () { }, 3000);
+    //Expand current progress bar to desired length
+    $(id).css("width", percent).text(text);
 }
 
 
+function progressCol2(id) {
+
+    //Reset progress bar back to 0%
+    $("#symbol").click(function () {
+        $(id).css("width", "0%").text("0% COMPLETE")
+    })
+
+    //Expand current progress bar to desired length
+    $(id).css("width", "100%").text("100% COMPLETE");
+}
 
 class Algo {
 
@@ -52,6 +51,7 @@ class Algo {
         this.dailyTimeSeries = "Time Series (Daily)";
         this.weeklyTimeSeries = "Weekly Time Series";
         this.monthlyTimeSeries = "Monthly Time Series";
+
 
         this.open = "1. open";
         this.high = "2. high";
@@ -89,6 +89,63 @@ class Algo {
 
             console.log("Its not a holiday");
         }
+
+
+
+        progress("20%", "20% COMPLETE")
+
+    }
+
+    // Check if the Stock Market is open or closed, 9:30am - 4pm est
+    ifMarketHours() {
+
+        if (this.timeCheck > "09:30:00" && this.timeCheck < "16:00:00") {
+            console.log("Market Is Opened, current time is " + this.currentTime);
+        }
+
+        else {
+
+            console.log("Market is closed, will revert to 3:50pm yesterday for testing purposes");
+
+            if (Date.today().is().monday()) {
+
+                this.today = Date.today().add(-3).days().toString("yyyy-MM-dd");
+                this.day_2 = Date.today().add(-4).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-5).days().toString("yyyy-MM-dd");
+
+            } else if (Date.today().is().tuesday()) {
+
+                this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
+                this.day_2 = Date.today().add(-4).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-5).days().toString("yyyy-MM-dd");
+
+            } else if (Date.today().is().wednesday()) {
+
+                this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
+                this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-5).days().toString("yyyy-MM-dd");
+
+            } else if (Date.today().is().thursday()) {
+
+                this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
+                this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+
+            } else if (Date.today().is().friday()) {
+
+                this.today = Date.today().add(-1).days().toString("yyyy-MM-dd");
+                this.day_2 = Date.today().add(-2).days().toString("yyyy-MM-dd");
+                this.day_3 = Date.today().add(-3).days().toString("yyyy-MM-dd");
+
+            }
+
+            this.presentTime = new Date.now().toString(this.today + " 15:50:00");
+            console.log(this.presentTime)
+            console.log(this.today, this.day_2, this.day_3)
+        }
+
+        progress("40%", "40% COMPLETE")
+
     }
 
     // Check if today is a weekend
@@ -115,7 +172,7 @@ class Algo {
             this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
 
         } else {
-            console.log('Checking if today is Monday... Looks like Today TimeFrame is ' + this.day);
+            console.log('Checking if today is a weekend... Looks like Today is ' + this.day);
         }
 
         //Checking Month_1 TimeFrame
@@ -139,7 +196,7 @@ class Algo {
             this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
 
         } else {
-            console.log('Checking if today is Monday... Looks like Month_1 TimeFrame is ' + this.day);
+            console.log('Checking if the day is the weekend on the month 1 timeframe... Looks like its ' + this.day);
         }
 
         //Checking Month_2 TimeFrame
@@ -163,22 +220,11 @@ class Algo {
             this.day_3 = Date.today().add(-4).days().toString("yyyy-MM-dd");
 
         } else {
-            console.log('Checking if today is Monday... Looks like Month_2 TimeFrame is ' + this.day);
+            console.log('Checking if the day is the weekend on the month 2 timeframe... Looks like its ' + this.day);
         }
-    }
 
-    // Check if the Stock Market is open or closed, 9:30am - 4pm est
-    ifMarketHours() {
-        if (this.timeCheck > "09:30:00" && this.timeCheck < "16:00:00" && this.day == "Sat" || this.day == "Sun") {
-            console.log("Market Is closed, current time is " + this.currentTime + " today is " + this.day);
-        }
-        else if (this.timeCheck > "09:30:00" || this.timeCheck < "16:00:00" && this.day != "Sat" || "Sun") {
-            console.log("Market Is Opened, current time is " + this.currentTime);
-        }
-        else {
-            console.log("Market is closed, will revert to 4pm for testing purposes");
-            this.presentTime = new Date.now().toString("yyyy-MM-dd 16:00:00");
-        }
+        progress("60%", "60% COMPLETE")
+
     }
 
     // Checking if the last day of month is a friday to compare timeframes
@@ -195,8 +241,11 @@ class Algo {
             console.log("month_2 is friday")
         }
 
+        progress("80%", "80% COMPLETE")
+
     }
 
+    //Request logo via api call
     getLogo() {
 
         $.get("https://api.iextrading.com/1.0/stock/" + this.sym + "/logo", function (data, status) {
@@ -215,10 +264,10 @@ class Algo {
 
     }
 
+    //Determine trend by analyzing stock ohlc data for the month via api call
     getMonth() {
 
-
-
+        //api call
         $.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data, status) => {
 
 
@@ -226,11 +275,10 @@ class Algo {
             if (data.Information) {
                 console.log("rate limit hit for " + this.sym + " Please use another symbol")
                 alert("Rate limit has been reached for " + this.sym.toUpperCase() + " Please check your list for previously checked symbols. Use another stock symbol")
-            } else {
             }
 
             //Update html analyze stock
-            $("#analyzeStock").text("COMPLETE")
+            progressCol2("#analyzeStock");
 
             //Get ohlc data
             this.month = {
@@ -257,26 +305,20 @@ class Algo {
             }
 
             //Limit order formulas
-            this.sellLimit = Number(this.month.high_2 - this.month.low_2 + this.month.close_2) - .05;
-            this.buyLimit = Number(this.month.high_2 - (this.month.high_2 - this.month.close_2) - .6);
+            this.sellLimit = (Number(this.month.high_2 - this.month.low_2 + this.month.close_2) - .05).toFixed(2);
+            this.buyLimit = (Number(this.month.high_2 - (this.month.high_2 - this.month.close_2) - .6)).toFixed(2);
             this.downtrendSellLimit = Number(this.month.close_2 - (this.month.high_2 - this.month.low_2));
             this.downtrendBuyLimit = Number(this.month.close_2 - (this.month.high_2 - this.month.low_2));
 
-            console.log(this.sellLimit.toFixed(2));
-            console.log(this.buyLimit)
-            //Algorithm: ==========================================================================================
+            console.log("buy limit ", this.buyLimit)
 
-            // Checking for the trend
 
-            // if uptrend ========================================================================
+            // Chcking for uptrend
             if (this.month.close_1 > this.month.open_2 && this.month.close_2 < this.month.open_3) {
-                console.log("uptrend found" + this.uptrendSellLimit)
-
-                //Update html Condition
-                $("#condition").text("uptrend found")
+                console.log("uptrend found " + this.sellLimit)
 
                 //Update html Monthly Limit
-                $("#monthFormula").text("this.sellLimit")
+                $("#monthFormula").text(this.sellLimit)
 
                 // Adding to watchlist
                 this.watchList.push(this.sym)
@@ -286,6 +328,15 @@ class Algo {
 
                 //Monthly timeframe api call=======================================================================================
                 $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
+                    console.log(data);
+                    console.log(Number(data[this.dailyTimeSeries][this.day_3][this.open])
+                    );
+
+                    console.log(data[this.dailyTimeSeries])
+                    console.log(data[this.dailyTimeSeries][this.day_3])
+                    console.log(data[this.dailyTimeSeries][this.day_3][this.open])
+
+
 
                     this.now = {
 
@@ -345,9 +396,13 @@ class Algo {
                     if (this.ddecision && this.mdecision == 2) {
 
                         $("#checkSetup").text("check")
+
                         console.log(true, "signal found")
+
                         this.signal = "BUY"
+
                         $("$signal").text("BUY")
+
                         $("#stock").text(this.sym.toUpperCase())
 
                         $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</td> <td>" + this.trend + "</td> <td>" + this.reversal + "</td> <td>" + this.signal + "</tr>")
@@ -375,7 +430,7 @@ class Algo {
                 console.log("downtrend found " + this.downtrendSellLimit);
 
                 //Update html Condition
-                $("#condition").text("DOWNTREND");
+                progressCol2("#condition")
 
                 //Update html Monthly Limit
                 $("#monthFormula").text(this.downtrendSellLimit.toFixed(2))
@@ -433,7 +488,8 @@ class Algo {
 
                     if (this.ddecdailyTrend == true) {
 
-                        $("#checkSetup").text("check")
+                        progressCol2("#checkSetup")
+
                         console.log(true, "Signal found")
                         this.signal = "BUY PUT"
                         $("$signal").text("BUY PUT")
@@ -442,8 +498,8 @@ class Algo {
                         $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</td> <td>" + this.trend + "</td> <td>" + this.reversal + "</td> <td>" + this.signal + "</tr>")
 
                     } else {
+                        progressCol2("#checkSetup")
 
-                        $("#checkSetup").text("CHECK TOMORROW")
                         console.log(false, "No day signal found yet")
                         this.signal = "NO BUY"
 
@@ -467,6 +523,11 @@ class Algo {
 
 
         })
+
+        progress("100%", "100% COMPLETE")
+
+
+
     }
 
     init() {
