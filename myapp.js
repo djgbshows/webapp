@@ -389,12 +389,19 @@ class Algo {
                         gap: "",
                         mvolume: ""
                     }
-                  
+
                     //Uptrend
                     this.uptrend_day_Buy = (Number(this.now.open_3).toFixed(2));
                     this.uptrend_day_Sell = (Number(this.now.high_2 - this.now.low_2 + this.now.close_2) - .05).toFixed(2);
 
-                    if (this.now.high_1 && this.now.low_1 && this.now.close_1 > this.now.high_2 && this.now.low_2 && this.now.close_2 && this.now.close_2 < this.now.open_3) {
+                    if (this.now.high_1 > this.now.high_2) {
+                        $("#high_1").text(this.month.high_1);
+                        $("#high_2").text(this.month.high_2);
+                        $("#trend").text("UPTREND")
+                        progressCol2("high_progress")
+                    }
+
+                    /*if (this.now.high_1 && this.now.low_1 && this.now.close_1 > this.now.high_2 && this.now.low_2 && this.now.close_2 && this.now.close_2 < this.now.open_3) {
 
                         $("#checkSetup").text("check")
                         $("#dayFormula").text(this.uptrend_day_Buy)
@@ -404,7 +411,11 @@ class Algo {
 
                         $("#stock").text(this.sym.toUpperCase())
 
-                        $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</td> <td>" + this.trend + "</td> <td>" + this.reversal + "</td> <td>" + this.signal + "</tr>")
+                        $("#open_1").text(this.month.open_1);
+                        $("#open_2").text(this.month.open_2);
+                        $("#open_3").text(this.month.open_3);
+                        $("#trend").text();
+
 
                     } else {
 
@@ -416,8 +427,14 @@ class Algo {
                         $("#signal").text("WAIT FOR NEXT SIGNAL")
                         $("#stock").text(this.sym.toUpperCase())
 
-                        $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</tr>")
-                    }
+                        /*$("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</tr>")
+                    
+                        $("#open_1").text(this.month.open_1);
+                        $("#open_2").text(this.month.open_2);
+                        $("#open_3").text(this.month.open_3);
+
+
+                }*/
 
                 });
 

@@ -1,5 +1,7 @@
 <html>
 
+<!--Head-->
+
 <head>
 
     <!-- Date.js -->
@@ -27,26 +29,280 @@
     <!-- or -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
-    <!-- Chart.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
 
-    <!--Amcharts-->
-    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-    <script src="https://www.amcharts.com/lib/3/amstock.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-
-
+    <!--GOOGLE FONTS-->
+    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 
 
 </head>
 
+<!--Body-->
+
 <body>
 
+    <!--Main Container-->
+    <div class="container-full">
 
+        <!--Navigation-->
+        <div class="navbar navbar-dark navbar-expand-sm bg-primary justify-content-center">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABOUT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CONTACT</a>
+                </li>
+            </ul>
+        </div>
+
+        <!--Demo Row-->
+        <div class="row">
+
+            <!--High data-->
+            <div class="col-sm-2">
+
+                <div class="holc_data">
+                    <center>
+                        <p>
+                            <h1 id="font">SETUP 1</h1>
+                        </p>
+
+                        <p>
+                            <span class="ohlc float left">MONTH 1:</span>
+                            <span class="ohlc float right" id="high_1">0%:</span>
+                        </p>
+
+                        <p>
+                            <span class="ohlc float left">MONTH 2:</span>
+                            <span class="ohlc float right" id="high_2">0%:</span>
+                        </p>
+
+                    </center>
+
+                </div>
+
+            </div>
+
+            <!--High Ouput-->
+            <div class="col-sm-2">
+                <div class="ohlc_output">
+                    <p>
+                        <center>
+                            <p>
+                                <h7 id="font">CALCULATING HIGH TREND</h7>
+
+                            </p>
+
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="high_progress">0% COMPLETE</div>
+                            </div>
+
+                            </br>
+
+                            <span>
+                                <h3 id="trend">SEARCHING</h3>
+                            </span>
+
+                        </center>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Row 1-->
+        <div class="row">
+
+            <!--Col 1 Input Box & Run Button-->
+            <div class="col-sm-4 data">
+
+                <div class="row">
+                    <!--Input box-->
+                    <div class="col-sm-6">
+                        <input type="input" placeholder="Input Stock 'aapl'" id="symbol"></input>
+                    </div>
+
+                    <!--Run Button-->
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary btn-lg" type="button" id="run">RUN</button>
+                    </div>
+                </div>
+
+                <!--Logo-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <center>
+                            <img src="https://storage.googleapis.com/iex/api/logos/AAPL.png" id="logo">
+                        </center>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--Col 2 Checklist-->
+            <div class="col-sm-4">
+
+                <!-- Row 1 Analyze Stock-->
+                <div class="row">
+
+
+                    <div class="col-sm-6">
+                        <p>ANALYZE STOCK</p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px" id="analyzeStock">0% COMPLETE</div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Row 2 Market Condition-->
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <p>MARKET CONDITION: </p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" style="width:0%" ; "height:20px" id="condition">0% COMPLETE</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Check Setup-->
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <p>CHECK SETUP: </p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width:0%" ; "height:20px" id="checkSetup">0% COMPLETE</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--Col 3 Limit Orders-->
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>SELL ORDER:</p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <h5 id="monthFormula"></h5>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>BUY ORDER:</p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <h5 id="dayFormula"></h5>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+
+                    <div class="col-sm-12">
+                        <center>
+                            <h1 id="signal"></h1>
+                        </center>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--Row 2 Progress Bar-->
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="progress" style="height:25px" id="mainProgress">
+                    <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:0%; height:25px">
+                        <h5>0% COMPLETE</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Watchlist Banner-->
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <center>
+                    <h3>WATCH LIST</h3>
+                </center>
+            </div>
+            <div class="col-sm-4"></div>
+
+        </div>
+
+        <!--Row 3-->
+        <div class="container-full">
+
+
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <!--Data Table-->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Date</th>
+
+                                <th>M-1 Close</th>
+                                <th>M-2 Open</th>
+                                <th>M-2 Close</th>
+                                <th>M-3 Open</th>
+                                <th>M-1 Low</th>
+                                <th>M-2 Low</th>
+
+                                <th>D-1 Close</th>
+                                <th>D-2 Open</th>
+                                <th>D-2 Close</th>
+                                <th>D-3 Open</th>
+                                <th>D-1 Low</th>
+                                <th>D-2 Low</th>
+
+                            </tr>
+                        </thead>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!--Javascript-->
     <script>
         $(document).ready(() => {
 
@@ -56,217 +312,6 @@
             })
         })
     </script>
-
-
-    <!--Navigation-->
-    <div class="navbar navbar-dark navbar-expand-sm bg-primary justify-content-center">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">HOME</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">ABOUT</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">CONTACT</a>
-            </li>
-        </ul>
-    </div>
-
-    <!--Row 1-->
-    <div class="row">
-
-        <!--Col 1 Input Box & Run Button-->
-        <div class="col-sm-4 data">
-
-            <div class="row">
-                <!--Input box-->
-                <div class="col-sm-6">
-                    <input type="input" placeholder="Input Stock 'aapl'" id="symbol"></input>
-                </div>
-
-                <!--Run Button-->
-                <div class="col-sm-6">
-                    <button class="btn btn-primary btn-lg" type="button" id="run">RUN</button>
-                </div>
-            </div>
-
-            <!--Logo-->
-            <div class="row">
-                <div class="col-sm-12">
-                    <center>
-                        <img src="https://storage.googleapis.com/iex/api/logos/AAPL.png" id="logo">
-                    </center>
-                </div>
-            </div>
-
-
-        </div>
-
-        <!--Col 2 Checklist-->
-        <div class="col-sm-4">
-
-            <!-- Row 1 Analyze Stock-->
-            <div class="row">
-
-
-                <div class="col-sm-6">
-                    <p>ANALYZE STOCK</p>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px" id="analyzeStock">0% COMPLETE</div>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <!-- Row 2 Market Condition-->
-            <div class="row">
-
-                <div class="col-sm-6">
-                    <p>MARKET CONDITION: </p>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" style="width:0%" ; "height:20px" id="condition">0% COMPLETE</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!--Check Setup-->
-            <div class="row">
-
-                <div class="col-sm-6">
-                    <p>CHECK SETUP: </p>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width:0%" ; "height:20px" id="checkSetup">0% COMPLETE</div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!--Col 3 Limit Orders-->
-        <div class="col-sm-4">
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>SELL ORDER:</p>
-                </div>
-
-                <div class="col-sm-6">
-                    <h5 id="monthFormula"></h5>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>BUY ORDER:</p>
-                </div>
-
-                <div class="col-sm-6">
-                    <h5 id="dayFormula"></h5>
-                </div>
-
-            </div>
-
-            <div class="row">
-
-
-                <div class="col-sm-12">
-                    <center>
-                        <h1 id="signal"></h1>
-                    </center>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <!--Row 2 Progress Bar-->
-    <div class="row">
-
-        <div class="col-sm-12">
-            <div class="progress" style="height:25px" id="mainProgress">
-                <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:0%; height:25px">
-                    <h5>0% COMPLETE</h5>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!--Watchlist Banner-->
-    <div class="row">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
-            <center>
-                <h3>WATCH LIST</h3>
-            </center>
-        </div>
-        <div class="col-sm-4"></div>
-
-    </div>
-
-
-
-    <!--Row 3-->
-    <div class="container-full">
-
-
-        <div class="row">
-            <div class="col-sm-12">
-
-                <!--Data Table-->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Date</th>
-
-                            <th>M-1 Close</th>
-                            <th>M-2 Open</th>
-                            <th>M-2 Close</th>
-                            <th>M-3 Open</th>
-                            <th>M-1 Low</th>
-                            <th>M-2 Low</th>
-
-                            <th>D-1 Close</th>
-                            <th>D-2 Open</th>
-                            <th>D-2 Close</th>
-                            <th>D-3 Open</th>
-                            <th>D-1 Low</th>
-                            <th>D-2 Low</th>
-
-                        </tr>
-                    </thead>
-
-                </table>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-
-
-
-
-
-
-
 
 </body>
 
