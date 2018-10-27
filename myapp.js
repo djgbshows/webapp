@@ -446,6 +446,111 @@ class Algo {
                 });
 
                 //Checking for trend    
+            }
+            //====================================================================
+
+            //Checking for Downtrend
+            else if (this.month.high_1 && this.month.low_1 && this.month.close_1 < this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 > this.month.open_3) {
+
+                //HIGH OHLC
+                $("#trend").text("DOWNTREND")
+                $("#high_1").text(this.month.high_1)
+                $("#high_2").text(this.month.high_2)
+                $("#open_3").text(this.month.open_3)
+
+                //LOW OHLC
+                $("#low_trend").text("DOWNTREND")
+                $("#low_1").text(this.month.low_1)
+                $("#low_2").text(this.month.low_2)
+                progressCol2("low_progress")
+
+                //GAP OHLC     
+                $("#close_trend").text("DOWNTREND")
+                $("#close_1").text(this.month.close_1)
+                $("#close_2").text(this.month.close_2)
+                $("#open_3").text(this.month.open_3)
+                progressCol2("close_progress")
+
+                // Adding to watchlist
+                this.watchList.push(this.sym)
+                console.log("added " + this.watchList + " to watchlist");
+                console.log("downtrend found " + this.sellLimit)
+
+                //Daily timeframe api call=======================================================================================
+                $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
+
+                    this.now = {
+
+                        ticker: data["Meta Data"]["2. Symbol"],
+
+                        open_1: Number(data[this.dailyTimeSeries][this.day_3][this.open]),
+                        high_1: Number(data[this.dailyTimeSeries][this.day_3][this.high]),
+                        low_1: Number(data[this.dailyTimeSeries][this.day_3][this.low]),
+                        close_1: Number(data[this.dailyTimeSeries][this.day_3][this.close]),
+                        volume_1: Number(data[this.dailyTimeSeries][this.day_3][this.volume]),
+
+                        open_2: Number(data[this.dailyTimeSeries][this.day_2][this.open]),
+                        high_2: Number(data[this.dailyTimeSeries][this.day_2][this.high]),
+                        low_2: Number(data[this.dailyTimeSeries][this.day_2][this.low]),
+                        close_2: Number(data[this.dailyTimeSeries][this.day_2][this.close]),
+                        volume_2: Math.round(Number(data[this.dailyTimeSeries][this.day_2][this.volume])),
+
+                        open_3: Number(data[this.dailyTimeSeries][this.today][this.open]),
+                        high_3: Number(data[this.dailyTimeSeries][this.today][this.high]),
+                        low_3: Number(data[this.dailyTimeSeries][this.today][this.low]),
+                        close_3: Number(data[this.dailyTimeSeries][this.today][this.close]),
+                        volume_3: Number(data[this.dailyTimeSeries][this.today][this.volume]),
+
+                        mclose: "",
+                        mlow: "",
+                        mpullback: "",
+                        gap: "",
+                        mvolume: ""
+                    }
+
+                    //Daily Uptrend
+                    this.uptrend_Day_Buy = (Number(this.now.open_3).toFixed(2));
+                    this.uptrend_Day_Sell = (Number(this.now.high_2 - this.now.low_2 + this.now.close_2) - .05).toFixed(2);
+
+                    if (this.now.high_1 && this.now.low_1 && this.now.close_1 < this.now.high_2 && this.now.low_2 && this.now.close_2 && this.now.close_2 > this.now.open_3) {
+
+                        //GAP OHLC     
+                        $("#close_1").text(this.month.low_1)
+                        $("#close_2").text(this.month.low_2)
+                        $("#open_3").text(this.now.open_3)
+                        $("#stock").text(this.sym.toUpperCase())
+                        $("#stock").text(this.sym.toUpperCase())
+                        progressCol2("close_progress")
+
+                        $("thead").append("<tr><td> SELL </td> <td>"
+                            + this.sym.toUpperCase() + "</td> <td>"
+                            + this.uptrend_Day_Buy + "</td> <td>"
+                            + this.uptrend_Day_Sell + "</tr></td>")
+
+                        console.log(true, "signal found")
+
+                    } else {
+
+                        //GAP OHLC     
+                        $("#close_1").text(this.month.low_1)
+                        $("#close_2").text(this.month.low_2)
+                        $("#open_3").text(this.now.open_3)
+                        $("#stock").text(this.sym.toUpperCase())
+                        $("#stock").text(this.sym.toUpperCase())
+                        progressCol2("close_progress")
+
+                        $("thead").append("<tr><td> WAIT </td> <td>"
+                            + this.sym.toUpperCase() + "</td> <td>"
+                            + this.uptrend_Day_Buy + "</td> <td>"
+                            + this.uptrend_Day_Sell + "</tr></td>")
+
+                        console.log(false, "No day signal found yet")
+
+                    }
+
+                });
+
+                //Checking for trend    
             } else {
 
                 //Hightrend
@@ -482,12 +587,6 @@ class Algo {
                     $("#open_3").text(this.month.open_3);
                     $("#close_trend").text("DOWNTREND")
                 }
-            }
-            //====================================================================
-
-            //Checking for Downtrend
-            if (this.month.high_1 && this.month.low_1 && this.month.close_1 < this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 > this.month.open_3) {
-              alert("hi")
             }
         })
     }
