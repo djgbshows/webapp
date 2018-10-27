@@ -356,14 +356,33 @@ class Algo {
                 $("#high_2").text(this.month.high_2)
                 $("#open_3").text(this.month.open_3)
             }*/
+
+            //HIGH DATA POINT
             if (this.month.high_1 > this.month.high_2) {
                 //Update html Monthly Limit
                 $("#monthFormula").text(this.uptrend_Sell)
                 $("#trend").text("UPTREND")
                 $("#high_1").text(this.month.high_1)
                 $("#high_2").text(this.month.high_2)
-                $("#open_3").text(this.month.open_3)
+                progressCol2("high_progress")
 
+                //LOW DATA POINT
+                if (this.month.low_1 > this.month.low_2) {
+                    //Update html Monthly Limit
+                    $("#low_trend").text("UPTREND")
+                    $("#low_1").text(this.month.low_1)
+                    $("#low_2").text(this.month.low_2)
+                    progressCol2("low_progress")
+                }
+
+                if (this.month.close_1 > this.month.close_2 && this.month.close_2 < this.month.open_3) {
+                    //Update html Monthly Limit
+                    $("#close_trend").text("UPTREND")
+                    $("#close_1").text(this.month.low_1)
+                    $("#close_2").text(this.month.low_2)
+                    $("#open_3").text(this.month.open_3)
+                    progressCol2("close_progress")
+                }
 
 
 
@@ -413,7 +432,6 @@ class Algo {
                         $("#high_1").text(this.month.high_1);
                         $("#high_2").text(this.month.high_2);
                         $("#trend").text("UPTREND")
-                        progressCol2("high_progress")
                     }
 
                     /*if (this.now.high_1 && this.now.low_1 && this.now.close_1 > this.now.high_2 && this.now.low_2 && this.now.close_2 && this.now.close_2 < this.now.open_3) {
