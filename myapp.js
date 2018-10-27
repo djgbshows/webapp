@@ -347,10 +347,25 @@ class Algo {
             console.log("downtrend sell " + this.downtrend_Sell)
 
             // Checking for uptrend
-            if (this.month.high_1 && this.month.low_1 && this.month.close_1 > this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 < this.month.open_3) {
+            /*if (this.month.high_1 && this.month.low_1 && this.month.close_1 > this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 < this.month.open_3) {
 
                 //Update html Monthly Limit
                 $("#monthFormula").text(this.uptrend_Sell)
+                $("#trend").text("UPTREND")
+                $("#high_1").text(this.month.high_1)
+                $("#high_2").text(this.month.high_2)
+                $("#open_3").text(this.month.open_3)
+            }*/
+            if (this.month.high_1 > this.month.high_2) {
+                //Update html Monthly Limit
+                $("#monthFormula").text(this.uptrend_Sell)
+                $("#trend").text("UPTREND")
+                $("#high_1").text(this.month.high_1)
+                $("#high_2").text(this.month.high_2)
+                $("#open_3").text(this.month.open_3)
+
+
+
 
                 // Adding to watchlist
                 this.watchList.push(this.sym)
@@ -402,38 +417,38 @@ class Algo {
                     }
 
                     /*if (this.now.high_1 && this.now.low_1 && this.now.close_1 > this.now.high_2 && this.now.low_2 && this.now.close_2 && this.now.close_2 < this.now.open_3) {
-
+    
                         $("#checkSetup").text("check")
                         $("#dayFormula").text(this.uptrend_day_Buy)
                         this.signal = "BUY"
-
+    
                         console.log(true, "signal found")
-
+    
                         $("#stock").text(this.sym.toUpperCase())
-
+    
                         $("#open_1").text(this.month.open_1);
                         $("#open_2").text(this.month.open_2);
                         $("#open_3").text(this.month.open_3);
                         $("#trend").text();
-
-
+    
+    
                     } else {
-
+    
                         $("#dayFormula").text(this.uptrend_day_Buy)
                         $("#checkSetup").text("100% COMPLETE")
                         console.log(false, "No day signal found yet")
                         this.signal = "WAIT"
-
+    
                         $("#signal").text("WAIT FOR NEXT SIGNAL")
                         $("#stock").text(this.sym.toUpperCase())
-
+    
                         /*$("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</tr>")
                     
                         $("#open_1").text(this.month.open_1);
                         $("#open_2").text(this.month.open_2);
                         $("#open_3").text(this.month.open_3);
-
-
+    
+    
                 }*/
 
                 });
