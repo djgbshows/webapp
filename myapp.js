@@ -420,7 +420,7 @@ class Algo {
                         $("thead").append("<tr><td> BUY </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
-                            + this.uptrend_Day_Sell + "</tr></td>")
+                            + this.uptrend_Sell + "</tr></td>")
 
                         console.log(true, "signal found")
 
@@ -437,7 +437,7 @@ class Algo {
                         $("thead").append("<tr><td> WAIT </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
-                            + this.uptrend_Day_Sell + "</tr></td>")
+                            + this.uptrend_Sell + "</tr></td>")
 
                         console.log(false, "No day signal found yet")
 
@@ -525,7 +525,7 @@ class Algo {
                         $("thead").append("<tr><td> SELL </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
-                            + this.uptrend_Day_Sell + "</tr></td>")
+                            + this.uptrend_Sell + "</tr></td>")
 
                         console.log(true, "signal found")
 
@@ -542,7 +542,7 @@ class Algo {
                         $("thead").append("<tr><td> WAIT </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
-                            + this.uptrend_Day_Sell + "</tr></td>")
+                            + this.uptrend_Sell + "</tr></td>")
 
                         console.log(false, "No day signal found yet")
 
