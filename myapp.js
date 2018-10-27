@@ -305,9 +305,6 @@ class Algo {
                 alert("Rate limit has been reached for " + this.sym.toUpperCase() + " Please check your list for previously checked symbols. Use another stock symbol")
             }
 
-            //Update html analyze stock
-            progressCol2("#analyzeStock");
-
             //Get MONTH ohlc data
             this.month = {
 
@@ -347,43 +344,33 @@ class Algo {
             console.log("downtrend sell " + this.downtrend_Sell)
 
             // Checking for uptrend
-            /*if (this.month.high_1 && this.month.low_1 && this.month.close_1 > this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 < this.month.open_3) {
+            if (this.month.high_1 && this.month.low_1 && this.month.close_1 > this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 < this.month.open_3) {
 
-                //Update html Monthly Limit
+
+                //HIGH OHLC
                 $("#monthFormula").text(this.uptrend_Sell)
-                $("#trend").text("UPTREND")
                 $("#high_1").text(this.month.high_1)
                 $("#high_2").text(this.month.high_2)
                 $("#open_3").text(this.month.open_3)
-            }*/
 
-            //HIGH DATA POINT
-            if (this.month.high_1 > this.month.high_2) {
-                //Update html Monthly Limit
-                $("#monthFormula").text(this.uptrend_Sell)
-                $("#trend").text("UPTREND")
-                $("#high_1").text(this.month.high_1)
-                $("#high_2").text(this.month.high_2)
-                progressCol2("high_progress")
-
-                //LOW DATA POINT
-                if (this.month.low_1 > this.month.low_2) {
-                    //Update html Monthly Limit
-                    $("#low_trend").text("UPTREND")
-                    $("#low_1").text(this.month.low_1)
-                    $("#low_2").text(this.month.low_2)
-                    progressCol2("low_progress")
+                if (this.month.high_1 > this.month.high_2) {
+                    $("#trend").text("UPTREND")
+                } else {
+                    $("#trend").text("DOWNTREND")
                 }
 
-                if (this.month.close_1 > this.month.close_2 && this.month.close_2 < this.month.open_3) {
-                    //Update html Monthly Limit
-                    $("#close_trend").text("UPTREND")
-                    $("#close_1").text(this.month.low_1)
-                    $("#close_2").text(this.month.low_2)
-                    $("#open_3").text(this.month.open_3)
-                    progressCol2("close_progress")
-                }
+                //LOW OHLC
+                $("#low_trend").text("UPTREND")
+                $("#low_1").text(this.month.low_1)
+                $("#low_2").text(this.month.low_2)
+                progressCol2("low_progress")
 
+                //GAP OHLC     
+                $("#close_trend").text("UPTREND")
+                $("#close_1").text(this.month.low_1)
+                $("#close_2").text(this.month.low_2)
+                $("#open_3").text(this.month.open_3)
+                progressCol2("close_progress")
 
 
                 // Adding to watchlist
@@ -428,45 +415,41 @@ class Algo {
                     this.uptrend_day_Buy = (Number(this.now.open_3).toFixed(2));
                     this.uptrend_day_Sell = (Number(this.now.high_2 - this.now.low_2 + this.now.close_2) - .05).toFixed(2);
 
-                    if (this.now.high_1 > this.now.high_2) {
-                        $("#high_1").text(this.month.high_1);
-                        $("#high_2").text(this.month.high_2);
-                        $("#trend").text("UPTREND")
-                    }
+
 
                     /*if (this.now.high_1 && this.now.low_1 && this.now.close_1 > this.now.high_2 && this.now.low_2 && this.now.close_2 && this.now.close_2 < this.now.open_3) {
-    
+     
                         $("#checkSetup").text("check")
                         $("#dayFormula").text(this.uptrend_day_Buy)
                         this.signal = "BUY"
-    
+     
                         console.log(true, "signal found")
-    
+     
                         $("#stock").text(this.sym.toUpperCase())
-    
+     
                         $("#open_1").text(this.month.open_1);
                         $("#open_2").text(this.month.open_2);
                         $("#open_3").text(this.month.open_3);
                         $("#trend").text();
-    
-    
+     
+     
                     } else {
-    
+     
                         $("#dayFormula").text(this.uptrend_day_Buy)
                         $("#checkSetup").text("100% COMPLETE")
                         console.log(false, "No day signal found yet")
                         this.signal = "WAIT"
-    
+     
                         $("#signal").text("WAIT FOR NEXT SIGNAL")
                         $("#stock").text(this.sym.toUpperCase())
-    
+     
                         /*$("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</tr>")
                     
                         $("#open_1").text(this.month.open_1);
                         $("#open_2").text(this.month.open_2);
                         $("#open_3").text(this.month.open_3);
-    
-    
+     
+     
                 }*/
 
                 });
@@ -474,98 +457,134 @@ class Algo {
 
 
                 //Checking for downtrend    
-            }
-
-            // Checking for downtrend
-            else if (this.month.high_1 && this.month.low_1 && this.month.close_1 < this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 > this.month.open_3) {
-                //Update html Condition
-                progressCol2("#condition")
-
-                //Update html Monthly Limit
-                $("#monthFormula").text(this.downtrend_Buy)
-
-                // Adding to watchlist
-                this.watchList.push(this.sym)
-                console.log("added " + this.watchList + " to watchlist");
-                console.log("downtrend found " + this.downtrend_Buy);
-
-                //Daily timeframe api call=======================================================================================
-                $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
-
-                    //Get ohlc data
-                    this.now = {
-
-                        ticker: data["Meta Data"]["2. Symbol"],
-
-                        open_1: Number(data[this.dailyTimeSeries][this.day_3][this.open]),
-                        high_1: Number(data[this.dailyTimeSeries][this.day_3][this.high]),
-                        low_1: Number(data[this.dailyTimeSeries][this.day_3][this.low]),
-                        close_1: Number(data[this.dailyTimeSeries][this.day_3][this.close]),
-                        volume_1: Number(data[this.dailyTimeSeries][this.day_3][this.volume]),
-
-                        open_2: Number(data[this.dailyTimeSeries][this.day_2][this.open]),
-                        high_2: Number(data[this.dailyTimeSeries][this.day_2][this.high]),
-                        low_2: Number(data[this.dailyTimeSeries][this.day_2][this.low]),
-                        close_2: Number(data[this.dailyTimeSeries][this.day_2][this.close]),
-                        volume_2: Math.round(Number(data[this.dailyTimeSeries][this.day_2][this.volume])),
-
-                        open_3: Number(data[this.dailyTimeSeries][this.today][this.open]),
-                        high_3: Number(data[this.dailyTimeSeries][this.today][this.high]),
-                        low_3: Number(data[this.dailyTimeSeries][this.today][this.low]),
-                        close_3: Number(data[this.dailyTimeSeries][this.today][this.close]),
-                        volume_3: Number(data[this.dailyTimeSeries][this.today][this.volume]),
-
-                        mclose: "",
-                        mlow: "",
-                        mpullback: "",
-                        gap: "",
-                        mvolume: ""
-                    }
-
-                    //Algorithm: ===========================================================================================
-                    //Check if candle 1 high and lows are higher than candle 2
-                    //Check if candle 2 close is less than candle 3 open
-
-
-                    if (this.now.close_1 < this.now.open_2 && this.now.close_2 > this.now.open_3) {
-                        this.dailyTrend = true;
-                    } else {
-                        this.dailyTrend = false;
-                    }
-
-
-                    if (this.ddecdailyTrend == true) {
-
-                        progressCol2("#checkSetup")
-
-                        console.log(true, "Signal found")
-                        this.signal = "BUY PUT"
-                        $("$signal").text("BUY PUT")
-                        $("#stock").text(this.sym.toUpperCase())
-
-                        $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</td> <td>" + this.trend + "</td> <td>" + this.reversal + "</td> <td>" + this.signal + "</tr>")
-
-                    } else {
-                        progressCol2("#checkSetup")
-
-                        console.log(false, "No day signal found yet")
-                        this.signal = "NO BUY"
-
-                        $("#signal").text("CHECK TOMORROW")
-                        $("#stock").text(this.sym.toUpperCase())
-
-                        $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</tr>")
-                    }
-
-                });
-
             } else {
-                $("#signal").text("BAD APPLE")
-                $("#results").text("BUY " + this.downtrendBuyLimit, "SELL " + this.downtrendSellLimit)
+
+                //Hightrend
+                if (this.month.high_1 > this.month.high_2) {
+                    $("#high_1").text(this.month.high_1);
+                    $("#high_2").text(this.month.high_2);
+                    $("#trend").text("UPTREND")
+                } else {
+                    $("#high_1").text(this.month.high_1);
+                    $("#high_2").text(this.month.high_2);
+                    $("#trend").text("DOWNTREND")
+                }
+
+                //Lowtrend
+                if (this.month.low_1 > this.month.low_2) {
+                    $("#low_1").text(this.month.low_1);
+                    $("#low_2").text(this.month.low_2);
+                    $("#low_trend").text("UPTREND")
+                } else {
+                    $("#low_1").text(this.month.low_1);
+                    $("#low_2").text(this.month.lo_2);
+                    $("#low_trend").text("DOWNTREND")
+                }
+
+                //Gap
+                if (this.month.close_2 > this.month.open_3) {
+                    $("#close_1").text(this.month.close_1);
+                    $("#close_2").text(this.month.close_2);
+                    $("#open_3").text(this.month.open_3);
+                    $("#close_trend").text("UPTREND")
+                } else {
+                    $("#close_1").text(this.month.close_1);
+                    $("#close_2").text(this.month.close_2);
+                    $("#open_3").text(this.month.open_2);
+                    $("#close_trend").text("DOWNTREND")
+                }
             }
+
+            /* Checking for downtrend
+            else if (this.month.high_1 && this.month.low_1 && this.month.close_1 < this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 > this.month.open_3) {
+            //Update html Condition
+            progressCol2("#condition")
+
+            //Update html Monthly Limit
+            $("#monthFormula").text(this.downtrend_Buy)
+
+            // Adding to watchlist
+            this.watchList.push(this.sym)
+            console.log("added " + this.watchList + " to watchlist");
+            console.log("downtrend found " + this.downtrend_Buy);
+
+            //Daily timeframe api call=======================================================================================
+            $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
+
+                //Get ohlc data
+                this.now = {
+
+                    ticker: data["Meta Data"]["2. Symbol"],
+
+                    open_1: Number(data[this.dailyTimeSeries][this.day_3][this.open]),
+                    high_1: Number(data[this.dailyTimeSeries][this.day_3][this.high]),
+                    low_1: Number(data[this.dailyTimeSeries][this.day_3][this.low]),
+                    close_1: Number(data[this.dailyTimeSeries][this.day_3][this.close]),
+                    volume_1: Number(data[this.dailyTimeSeries][this.day_3][this.volume]),
+
+                    open_2: Number(data[this.dailyTimeSeries][this.day_2][this.open]),
+                    high_2: Number(data[this.dailyTimeSeries][this.day_2][this.high]),
+                    low_2: Number(data[this.dailyTimeSeries][this.day_2][this.low]),
+                    close_2: Number(data[this.dailyTimeSeries][this.day_2][this.close]),
+                    volume_2: Math.round(Number(data[this.dailyTimeSeries][this.day_2][this.volume])),
+
+                    open_3: Number(data[this.dailyTimeSeries][this.today][this.open]),
+                    high_3: Number(data[this.dailyTimeSeries][this.today][this.high]),
+                    low_3: Number(data[this.dailyTimeSeries][this.today][this.low]),
+                    close_3: Number(data[this.dailyTimeSeries][this.today][this.close]),
+                    volume_3: Number(data[this.dailyTimeSeries][this.today][this.volume]),
+
+                    mclose: "",
+                    mlow: "",
+                    mpullback: "",
+                    gap: "",
+                    mvolume: ""
+                }
+
+                //Algorithm: ===========================================================================================
+                //Check if candle 1 high and lows are higher than candle 2
+                //Check if candle 2 close is less than candle 3 open
+
+
+                if (this.now.close_1 < this.now.open_2 && this.now.close_2 > this.now.open_3) {
+                    this.dailyTrend = true;
+                } else {
+                    this.dailyTrend = false;
+                }
+
+
+                if (this.ddecdailyTrend == true) {
+
+                    progressCol2("#checkSetup")
+
+                    console.log(true, "Signal found")
+                    this.signal = "BUY PUT"
+                    $("$signal").text("BUY PUT")
+                    $("#stock").text(this.sym.toUpperCase())
+
+                    $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</td> <td>" + this.trend + "</td> <td>" + this.reversal + "</td> <td>" + this.signal + "</tr>")
+
+                } else {
+                    progressCol2("#checkSetup")
+
+                    console.log(false, "No day signal found yet")
+                    this.signal = "NO BUY"
+
+                    $("#signal").text("CHECK TOMORROW")
+                    $("#stock").text(this.sym.toUpperCase())
+
+                    $("thead").append("<tr> <td id='shade'>" + this.sym.toUpperCase() + "</td> <td>" + this.today + "</td> <td>" + this.month.close_1 + "</td> <td>" + this.month.open_2 + "</td> <td>" + this.month.close_2 + "</td> <td>" + this.month.open_3 + "</td> <td>" + this.month.low_1 + "</td> <td>" + this.month.low_2 + "</td> <td>" + this.now.close_1 + "</td> <td>" + this.now.open_2 + "</td> <td>" + this.now.close_2 + "</td> <td>" + this.now.open_3 + "</td> <td>" + this.now.low_1 + "</td> <td>" + this.now.low_2 + "</tr>")
+                }
+
+            });
+
+        } else {
+            $("#signal").text("BAD APPLE")
+            $("#results").text("BUY " + this.downtrendBuyLimit, "SELL " + this.downtrendSellLimit)
+        }*/
+
             //If Stock is found then add it to a watchlist
         })
-
         progress("100%", "100% COMPLETE")
     }
 

@@ -61,259 +61,185 @@
             </ul>
         </div>
 
-        <!--Demo Row-->
+        <!--ROW 1-->
         <div class="row">
 
-            <!--High data-->
-            <div class="col-sm-2">
-
-                <div class="holc_data">
-                    <center>
-                        </br>
-                        <p>
-                            <h7>OHLC DATA</h7>
-                        </p>
-
-                        <p>
-                            <span class="ohlc float left">MONTH 1:</span>
-                            <span class="ohlc float right" id="high_1">0%:</span>
-
-                        </p>
-
-                        <p>
-                            <span class="ohlc float left">MONTH 2:</span>
-                            <span class="ohlc float right" id="high_2">0%:</span>
-                        </p>
-
-                    </center>
-
-                </div>
-
-            </div>
-
-            <!--High Ouput-->
-            <div class="col-sm-2">
-                <div class="ohlc_output">
-                    <p>
-                        <center>
-
-                            <p>
-                                <h7 id="trend">SEARCHING</h7>
-                            </p>
-
-
-
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="high_progress">0% COMPLETE</div>
-                            </div>
-
-                            </br>
-
-                            <p>
-                                <h7 id="font">CALCULATING HIGH TREND</h7>
-
-                            </p>
-
-
-                        </center>
-                    </p>
-                </div>
-            </div>
-
-            <!--Low data-->
-            <div class="col-sm-2">
-
-                <div class="holc_data">
-                    <center>
-                        </br>
-                        <p>
-                            <h7>OHLC DATA</h7>
-                        </p>
-
-                        <p>
-                            <span class="ohlc float left">MONTH 1:</span>
-                            <span class="ohlc float right" id="low_1">0%:</span>
-
-                        </p>
-
-                        <p>
-                            <span class="ohlc float left">MONTH 2:</span>
-                            <span class="ohlc float right" id="low_2">0%:</span>
-                        </p>
-
-                    </center>
-
-                </div>
-
-            </div>
-
-            <!--Low Ouput-->
-            <div class="col-sm-2">
-                <div class="ohlc_output">
-                    <p>
-                        <center>
-
-                            <p>
-                                <h7 id="low_trend">SEARCHING</h7>
-                            </p>
-
-
-
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="low_progress">0% COMPLETE</div>
-                            </div>
-
-                            </br>
-
-                            <p>
-                                <h7 id="font">CALCULATING LOW TREND</h7>
-
-                            </p>
-
-
-                        </center>
-                    </p>
-                </div>
-            </div>
-
-            <!--Close data-->
-            <div class="col-sm-2">
-
-                <div class="holc_data">
-                    <center>
-                        </br>
-                        <p>
-                            <h7>OHLC DATA</h7>
-                        </p>
-
-                        <p>
-                            <span class="ohlc float left">MONTH 1:</span>
-                            <span class="ohlc float right" id="close_1">0%:</span>
-
-                        </p>
-
-                        <p>
-                            <span class="ohlc float left">MONTH 2:</span>
-                            <span class="ohlc float right" id="close_2">0%:</span>
-                        </p>
-
-                        <p>
-                            <span class="ohlc float left">MONTH 3:</span>
-                            <span class="ohlc float right" id="open_3">0%:</span>
-                        </p>
-
-                    </center>
-
-                </div>
-
-            </div>
-
-            <!--Close Ouput-->
-            <div class="col-sm-2">
-                <div class="ohlc_output">
-                    <p>
-                        <center>
-
-                            <p>
-                                <h7 id="close_trend">SEARCHING</h7>
-                            </p>
-
-
-
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="close_progress">0% COMPLETE</div>
-                            </div>
-
-                            </br>
-
-                            <p>
-                                <h7 id="font">CALCULATING CLOSE/OPEN GAP</h7>
-
-                            </p>
-
-
-                        </center>
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-        <!--Row 1 Data Points-->
-        <div class="row">
-
-            <!--Col 1 Input Box & Run Button-->
-            <div class="col-sm-4 data">
-
-                <div class="row">
-                    <!--Input box-->
-                    <div class="col-sm-6">
-                        <input type="input" placeholder="Input Stock 'aapl'" id="symbol"></input>
-                    </div>
-
-                    <!--Run Button-->
-                    <div class="col-sm-6">
-                        <button class="btn btn-primary btn-lg" type="button" id="run">RUN</button>
-                    </div>
-                </div>
-
-                <!--Logo-->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <center>
-                            <img src="https://storage.googleapis.com/iex/api/logos/AAPL.png" id="logo">
-                        </center>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <!--Col 2 Checklist-->
+            <!--Col 1 Data Points-->
             <div class="col-sm-4">
 
-                <!-- Row 1 Analyze Stock-->
                 <div class="row">
 
-
                     <div class="col-sm-6">
-                        <p>ANALYZE STOCK</p>
-                    </div>
+                        <div class="holc_data">
+                            <center>
+                                </br>
+                                <p>
+                                    <h7>OHLC DATA</h7>
+                                </p>
 
-                    <div class="col-sm-6">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px" id="analyzeStock">0% COMPLETE</div>
+                                <p>
+                                    <span class="ohlc float left">MONTH 1:</span>
+                                    <span class="ohlc float right" id="high_1">0%:</span>
+
+                                </p>
+
+                                <p>
+                                    <span class="ohlc float left">MONTH 2:</span>
+                                    <span class="ohlc float right" id="high_2">0%:</span>
+                                </p>
+
+                            </center>
+
                         </div>
                     </div>
 
-
-                </div>
-
-                <!-- Row 2 Market Condition-->
-                <div class="row">
-
                     <div class="col-sm-6">
-                        <p>MARKET CONDITION: </p>
-                    </div>
+                        <div class="ohlc_output">
+                            <p>
+                                <center>
 
-                    <div class="col-sm-6">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" style="width:0%" ; "height:20px" id="condition">0% COMPLETE</div>
+                                    <p>
+                                        <h7 id="trend">SEARCHING</h7>
+                                    </p>
+
+
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="high_progress">0% COMPLETE</div>
+                                    </div>
+
+                                    </br>
+
+                                    <p>
+                                        <h7 id="font">CALCULATING HIGH TREND</h7>
+
+                                    </p>
+
+
+                                </center>
+                            </p>
                         </div>
                     </div>
 
                 </div>
-
-                <!--Check Setup-->
                 <div class="row">
-
+                    <!--Low data-->
                     <div class="col-sm-6">
-                        <p>CHECK SETUP: </p>
+
+                        <div class="holc_data">
+                            <center>
+                                </br>
+                                <p>
+                                    <h7>OHLC DATA</h7>
+                                </p>
+
+                                <p>
+                                    <span class="ohlc float left">MONTH 1:</span>
+                                    <span class="ohlc float right" id="low_1">0%:</span>
+
+                                </p>
+
+                                <p>
+                                    <span class="ohlc float left">MONTH 2:</span>
+                                    <span class="ohlc float right" id="low_2">0%:</span>
+                                </p>
+
+                            </center>
+
+                        </div>
+
                     </div>
 
+                    <!--Low Ouput-->
                     <div class="col-sm-6">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width:0%" ; "height:20px" id="checkSetup">0% COMPLETE</div>
+                        <div class="ohlc_output">
+                            <p>
+                                <center>
+
+                                    <p>
+                                        <h7 id="low_trend">SEARCHING</h7>
+                                    </p>
+
+
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="low_progress">0% COMPLETE</div>
+                                    </div>
+
+                                    </br>
+
+                                    <p>
+                                        <h7 id="font">CALCULATING LOW TREND</h7>
+
+                                    </p>
+
+
+                                </center>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <!--Close data-->
+                    <div class="col-sm-6">
+
+                        <div class="holc_data">
+                            <center>
+                                </br>
+                                <p>
+                                    <h7>OHLC DATA</h7>
+                                </p>
+
+                                <p>
+                                    <span class="ohlc float left">MONTH 1:</span>
+                                    <span class="ohlc float right" id="close_1">0%:</span>
+
+                                </p>
+
+                                <p>
+                                    <span class="ohlc float left">MONTH 2:</span>
+                                    <span class="ohlc float right" id="close_2">0%:</span>
+                                </p>
+
+                                <p>
+                                    <span class="ohlc float left">MONTH 3:</span>
+                                    <span class="ohlc float right" id="open_3">0%:</span>
+                                </p>
+
+                            </center>
+
+                        </div>
+
+                    </div>
+
+                    <!--Close Ouput-->
+                    <div class="col-sm-6">
+                        <div class="ohlc_output">
+                            <p>
+                                <center>
+
+                                    <p>
+                                        <h7 id="close_trend">SEARCHING</h7>
+                                    </p>
+
+
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="close_progress">0% COMPLETE</div>
+                                    </div>
+
+                                    </br>
+
+                                    <p>
+                                        <h7 id="font">CALCULATING CLOSE/OPEN GAP</h7>
+
+                                    </p>
+
+
+                                </center>
+                            </p>
                         </div>
                     </div>
 
@@ -321,60 +247,57 @@
 
             </div>
 
-            <!--Col 3 Limit Orders-->
+            <!--Col 2 Input Box-->
             <div class="col-sm-4">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>SELL ORDER:</p>
+
+                <!--Col 1 Input Box & Run Button-->
+                <div class="col-sm-12 data">
+
+                    <div class="row">
+                        <!--Input box-->
+                        <div class="col-sm-6">
+                            <input type="input" placeholder="Input Stock 'aapl'" id="symbol"></input>
+                        </div>
+
+                        <!--Run Button-->
+                        <div class="col-sm-6">
+                            <button class="btn btn-primary btn-lg" type="button" id="run">RUN</button>
+                        </div>
                     </div>
 
-                    <div class="col-sm-6">
-                        <h5 id="monthFormula"></h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>BUY ORDER:</p>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <h5 id="dayFormula"></h5>
+                    <!--Logo-->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <center>
+                                <img src="https://storage.googleapis.com/iex/api/logos/AAPL.png" id="logo">
+                            </center>
+                        </div>
                     </div>
 
-                </div>
 
-                <div class="row">
-
-
-                    <div class="col-sm-12">
-                        <center>
-                            <h1 id="signal"></h1>
-                        </center>
-                    </div>
                 </div>
 
             </div>
 
-        </div>
+            <!--Col 3 Watchlist-->
+            <div class="col-sm-4">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>SIGNAL</th>
+                        <th>STOCK</th>
+                        <th>BUY LIMIT</th>
+                        <th>SELL LIMIT</th>
+                    </tr>
 
-        <!--Row 2 Progress Bar-->
-        <div class="row">
-
-            <div class="col-sm-12">
-                <div class="progress" style="height:25px" id="mainProgress">
-                    <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:0%; height:25px">
-                        <h5>0% COMPLETE</h5>
-                    </div>
-                </div>
+                    <tr>
+                        <td id="signal"></td>
+                        <td id="stock"></td>
+                        <td id="buy_limit"></td>
+                        <td id="sell_limit"></td>
+                    </tr>
             </div>
 
         </div>
-
-
-
-
-
     </div>
 
     <!--Javascript-->
