@@ -1,16 +1,3 @@
-/*notes
-Do not trade all time highs or low, they are very unpredictable
-formula for buy limit is high - (open - low)
-look for lower low and lower highs, vise versa. 1 & 2 have to be in a confirmed trend before 3 starts 
-
-my pattern must use a 3 step setup, 2 bars trending then the 3rd bar reversing, never use 2 bars trending in 1 direction then the 3rd bar going in thr same direction. This is unpredicatable and formulas will not compute correctly
-
-Pattern is bars 1 & 2 are trending in a direction. Bar 3 open is gapped up or down in the opposite direction which is a string sign of a reversal. 
-
-
- */
-
-
 function progress(percent, text, id) {
 
     //Reset progress bar back to 0%
@@ -24,7 +11,6 @@ function progress(percent, text, id) {
     //Expand current progress bar to desired length
     $(id).css("width", percent).text(text);
 }
-
 
 function progressCol2(id) {
 
@@ -308,7 +294,13 @@ class Algo {
                 alert("Rate limit has been reached for " + this.sym.toUpperCase() + " Please check your list for previously checked symbols. Use another stock symbol")
             }
 
-            console.log(data)
+            
+           if(data["Meta Data"]["3. Last Refreshed"] < this.today ){
+            $("#signal").text("UNAVAILABLE")
+            $("#signal_des").text("Our apologizes, it seems " + this.sym + " is not supported with our app. Usually this error happens if the stock / option has went to otc or nyse has simply removed it from trading. If you find this error incorrect please contact us.")
+           }
+            
+
             //Get MONTH ohlc data
             this.month = {
 
