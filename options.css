@@ -10,6 +10,24 @@ p {
     color: #73879C;
 }
 
+#signal{
+    margin-bottom: .5rem;
+    font-family: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    color: inherit;
+    font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
+    color: #73879C;
+}
+
+#symbol{
+    margin-top: 10px;
+}
+
+.btn{
+    width: 150;
+}
+
 #font{
     font-family: 'Righteous', cursive;
     font-size:100%;
@@ -25,16 +43,6 @@ p {
     border-style:  inset;
     border-width: 1px;
 
-}
-
-
-#logo{
-    height:250px; 
-    width:250px;
-}
-
-#header_logo{
-    margin: 10;
 }
 
 .row{
