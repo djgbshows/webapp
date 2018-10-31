@@ -48,193 +48,9 @@
     <!--Main Container-->
     <div class="container-full">
 
-
-
         <!--ROW 1-->
         <div class="row">
 
-            <!--Col 1 Data Points-->
-            <div class="col-sm-4">
-
-                <div class="row">
-
-                    <div class="col-sm-6">
-                        <div class="holc_data">
-                            <center>
-                                </br>
-                                <p>
-                                    <h7>OHLC DATA</h7>
-                                </p>
-
-                                <p>
-                                    <span class="ohlc float left">MONTH 1:</span>
-                                    <span class="ohlc float right" id="high_1">0%:</span>
-
-                                </p>
-
-                                <p>
-                                    <span class="ohlc float left">MONTH 2:</span>
-                                    <span class="ohlc float right" id="high_2">0%:</span>
-                                </p>
-
-                            </center>
-
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="ohlc_output">
-                            <p>
-                                <center>
-
-                                    <p>
-                                        <h7 id="trend">SEARCHING</h7>
-                                    </p>
-
-
-
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="high_progress">0% COMPLETE</div>
-                                    </div>
-
-                                    </br>
-
-                                    <p>
-                                        <h7 id="font">CALCULATING HIGH TREND</h7>
-
-                                    </p>
-
-
-                                </center>
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <!--Low data-->
-                    <div class="col-sm-6">
-
-                        <div class="holc_data">
-                            <center>
-                                </br>
-                                <p>
-                                    <h7>OHLC DATA</h7>
-                                </p>
-
-                                <p>
-                                    <span class="ohlc float left">MONTH 1:</span>
-                                    <span class="ohlc float right" id="low_1">0%:</span>
-
-                                </p>
-
-                                <p>
-                                    <span class="ohlc float left">MONTH 2:</span>
-                                    <span class="ohlc float right" id="low_2">0%:</span>
-                                </p>
-
-                            </center>
-
-                        </div>
-
-                    </div>
-
-                    <!--Low Ouput-->
-                    <div class="col-sm-6">
-                        <div class="ohlc_output">
-                            <p>
-                                <center>
-
-                                    <p>
-                                        <h7 id="low_trend">SEARCHING</h7>
-                                    </p>
-
-
-
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="low_progress">0% COMPLETE</div>
-                                    </div>
-
-                                    </br>
-
-                                    <p>
-                                        <h7 id="font">CALCULATING LOW TREND</h7>
-
-                                    </p>
-
-
-                                </center>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <!--Close data-->
-                    <div class="col-sm-6">
-
-                        <div class="holc_data">
-                            <center>
-                                </br>
-                                <p>
-                                    <h7>OHLC DATA</h7>
-                                </p>
-
-                                <p>
-                                    <span class="ohlc float left">MONTH 1:</span>
-                                    <span class="ohlc float right" id="close_1">0%:</span>
-
-                                </p>
-
-                                <p>
-                                    <span class="ohlc float left">MONTH 2:</span>
-                                    <span class="ohlc float right" id="close_2">0%:</span>
-                                </p>
-
-                                <p>
-                                    <span class="ohlc float left">MONTH 3:</span>
-                                    <span class="ohlc float right" id="open_3">0%:</span>
-                                </p>
-
-                            </center>
-
-                        </div>
-
-                    </div>
-
-                    <!--Close Ouput-->
-                    <div class="col-sm-6">
-                        <div class="ohlc_output">
-                            <p>
-                                <center>
-
-                                    <p>
-                                        <h7 id="close_trend">SEARCHING</h7>
-                                    </p>
-
-
-
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="close_progress">0% COMPLETE</div>
-                                    </div>
-
-                                    </br>
-
-                                    <p>
-                                        <h7 id="font">CALCULATING CLOSE/OPEN GAP</h7>
-
-                                    </p>
-
-
-                                </center>
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
 
             <!--Col 2 Input Box-->
             <div class="col-sm-4">
@@ -280,6 +96,207 @@
 
             </div>
 
+            <!--Col 1 Data Points-->
+            <div class="col-sm-4">
+
+                <!--High data-->
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <div class="holc_data">
+                            <center>
+                                </br>
+                                <p>
+                                    <h7>OHLC DATA</h7>
+                                </p>
+
+                                <p>
+                                    <span id="high_date_1">DATE</span>
+                                    </br>
+                                    <span class="ohlc float left">MONTH 1:</span>
+                                    <span class="ohlc float right" id="high_1">0%:</span>
+
+                                </p>
+
+                                <p>
+                                    <span id="high_date_2">DATE</span>
+                                    </br>
+                                    <span class="ohlc float left">MONTH 2:</span>
+                                    <span class="ohlc float right" id="high_2">0%:</span>
+                                </p>
+
+                            </center>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="ohlc_output">
+                            <p>
+                                <center>
+
+                                    <p>
+                                        <h7 id="trend">SEARCHING</h7>
+                                    </p>
+
+
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="high_progress">0% COMPLETE</div>
+                                    </div>
+
+                                    </br>
+
+                                    <p>
+                                        <h7 id="font">CALCULATING HIGH TREND</h7>
+
+                                    </p>
+
+
+                                </center>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Low data-->
+                <div class="row">
+                    <!--Low data-->
+                    <div class="col-sm-6">
+
+                        <div class="holc_data">
+                            <center>
+                                </br>
+                                <p>
+                                    <h7>OHLC DATA</h7>
+                                </p>
+
+                                <p>
+                                    <span id="low_date_1">DATE</span>
+                                    </br>
+                                    <span class="ohlc float left">MONTH 1:</span>
+                                    <span class="ohlc float right" id="low_1">0%:</span>
+
+                                </p>
+
+                                <p>
+                                    <span id="low_date_2">DATE</span>
+                                    </br>
+                                    <span class="ohlc float left">MONTH 2:</span>
+                                    <span class="ohlc float right" id="low_2">0%:</span>
+                                </p>
+
+                            </center>
+
+                        </div>
+
+                    </div>
+
+                    <!--Low Ouput-->
+                    <div class="col-sm-6">
+                        <div class="ohlc_output">
+                            <p>
+                                <center>
+
+                                    <p>
+                                        <h7 id="low_trend">SEARCHING</h7>
+                                    </p>
+
+
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="low_progress">0% COMPLETE</div>
+                                    </div>
+
+                                    </br>
+
+                                    <p>
+                                        <h7 id="font">CALCULATING LOW TREND</h7>
+
+                                    </p>
+
+
+                                </center>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Gap data-->
+                <div class="row">
+
+                    <!--Close data-->
+                    <div class="col-sm-6">
+
+                        <div class="holc_data">
+                            <center>
+                                </br>
+                                <p>
+                                    <h7>OHLC DATA</h7>
+                                </p>
+
+                                <p>
+                                    <span id="gap_date_1">DATE</span>
+                                    </br>
+                                    <span class="ohlc float left">MONTH 1:</span>
+                                    <span class="ohlc float right" id="close_1">0%:</span>
+
+                                </p>
+
+                                <p>
+                                    <span id="gap_date_2">DATE</span>
+                                    </br>
+                                    <span class="ohlc float left">MONTH 2:</span>
+                                    <span class="ohlc float right" id="close_2">0%:</span>
+                                </p>
+
+                                <p>
+                                    <span id="gap_date_3">DATE</span>
+                                    </br>
+                                    <span class="ohlc float left">MONTH 3:</span>
+                                    <span class="ohlc float right" id="open_3">0%:</span>
+                                </p>
+
+                            </center>
+
+                        </div>
+
+                    </div>
+
+                    <!--Close Ouput-->
+                    <div class="col-sm-6">
+                        <div class="ohlc_output">
+                            <p>
+                                <center>
+
+                                    <p>
+                                        <h7 id="close_trend">SEARCHING</h7>
+                                    </p>
+
+
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%" ; "height:20px"; id="close_progress">0% COMPLETE</div>
+                                    </div>
+
+                                    </br>
+
+                                    <p>
+                                        <h7 id="font">CALCULATING CLOSE/OPEN GAP</h7>
+
+                                    </p>
+
+
+                                </center>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
             <!--Col 3 Watchlist-->
             <div class="col-sm-4">
                 <center>
@@ -309,6 +326,15 @@
             $('#run').on('click', () => {
                 new Algo()
             })
+
+            $("#symbol").keypress(function (e) {
+                if (e.which == 13) {
+                    new Algo()
+                }
+            });
+
+
+
         })
     </script>
 

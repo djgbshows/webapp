@@ -77,6 +77,19 @@ class Algo {
         this.init()
     }
 
+    dates() {
+        $("#low_date_1").text(this.month_1)
+        $("#low_date_2").text(this.month_2)
+
+        $("#high_date_1").text(this.month_1)
+        $("#high_date_2").text(this.month_2)
+
+        $("#gap_date_1").text(this.month_1)
+        $("#gap_date_2").text(this.month_2)
+        $("#gap_date_3").text(this.today)
+
+    }
+
     //Checking if its a Holiday
     ifHoliday() {
         if (this.today == Date.today().toString("yyyy-01-01") || this.today == Date.today().toString("yyyy-01-15") || this.today == Date.today().toString("yyyy-02-19") || this.today == Date.today().toString("yyyy-03-29") || this.today == Date.today().toString("yyyy-03-30") || this.today == Date.today().toString("yyyy-05-27") || this.today == Date.today().toString("yyyy-05-28") || this.today == Date.today().toString("yyyy-07-03") || this.today == Date.today().toString("yyyy-07-04") || this.today == Date.today().toString("yyyy-05-08") || this.today == Date.today().toString("yyyy-09-03") || this.today == Date.today().toString("yyyy-11-12") || this.today == Date.today().toString("yyyy-11-22") || this.today == Date.today().toString("yyyy-11-23") || this.today == Date.today().toString("yyyy-12-24") || this.today == Date.today().toString("yyyy-12-25") || this.today == Date.today().toString("yyyy-12-31")) {
@@ -294,12 +307,12 @@ class Algo {
                 alert("Rate limit has been reached for " + this.sym.toUpperCase() + " Please check your list for previously checked symbols. Use another stock symbol")
             }
 
-            
-           if(data["Meta Data"]["3. Last Refreshed"] < this.today ){
-            $("#signal").text("UNAVAILABLE")
-            $("#signal_des").text("Our apologizes, it seems " + this.sym + " is not supported with our app. Usually this error happens if the stock / option has went to otc or nyse has simply removed it from trading. If you find this error incorrect please contact us.")
-           }
-            
+            //If stock is not supported
+            if (data["Meta Data"]["3. Last Refreshed"] < this.today) {
+                $("#signal").text("UNAVAILABLE")
+                $("#signal_des").text("Our apologizes, it seems " + this.sym + " is not supported with our app. Usually this error happens if the stock / option has went to otc or nyse has simply removed it from trading. If you find this error incorrect please contact us.")
+            }
+
 
             //Get MONTH ohlc data
             this.month = {
@@ -342,6 +355,7 @@ class Algo {
             console.log("uptrend sell " + this.uptrend_Sell)
             console.log("downtrend buy " + this.downtrend_Buy)
             console.log("downtrend sell " + this.downtrend_Sell)
+
             // Checking for Uptrend
             if (this.month.high_1 && this.month.low_1 && this.month.close_1 > this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 < this.month.open_3) {
 
@@ -350,6 +364,7 @@ class Algo {
                 $("#high_1").text(this.month.high_1)
                 $("#high_2").text(this.month.high_2)
                 $("#open_3").text(this.month.open_3)
+                $("#date_1").text(this.month_1)
 
                 //LOW OHLC
                 $("#low_trend").text("UPTREND")
@@ -413,6 +428,9 @@ class Algo {
                         $("#open_3").text(this.now.open_3)
                         $("#stock").text(this.sym.toUpperCase())
                         $("#stock").text(this.sym.toUpperCase())
+
+                        this.dates()
+
                         $("#signal").text("CALL / BUY")
                         $("#signal_des").text("This stock checks off on our monthly setup and our daily setup. We added it to the watchlist. Please review your stock chart to confirm the reversal. Purchase at your own risk")
 
@@ -434,6 +452,9 @@ class Algo {
                         $("#open_3").text(this.now.open_3)
                         $("#stock").text(this.sym.toUpperCase())
                         $("#stock").text(this.sym.toUpperCase())
+
+                        this.dates()
+
                         $("#signal").text("ALMOST")
                         $("#signal_des").text("This stock checks off on our monthly setup but not our daily setup. We added it to the watchlist. Run it again tomorrow to check for a buy signal")
 
@@ -462,6 +483,7 @@ class Algo {
                 $("#high_1").text(this.month.high_1)
                 $("#high_2").text(this.month.high_2)
                 $("#open_3").text(this.month.open_3)
+
 
                 //LOW OHLC
                 $("#low_trend").text("DOWNTREND")
@@ -528,6 +550,8 @@ class Algo {
                         $("#stock").text(this.sym.toUpperCase())
                         $("#stock").text(this.sym.toUpperCase())
 
+                        this.dates()
+
                         $("#signal").text("PUT / SELL")
                         $("#signal_des").text("This stock checks off on our monthly setup and our daily setup. We added it to the watchlist. Please review your stock chart to confirm the reversal. Purchase at your own risk")
 
@@ -548,6 +572,9 @@ class Algo {
                         $("#open_3").text(this.month.open_3)
                         $("#stock").text(this.sym.toUpperCase())
                         $("#stock").text(this.sym.toUpperCase())
+
+                        this.dates()
+
                         $("#signal").text("ALMOST")
                         $("#signal_des").text("This stock checks off on our monthly setup but not our daily setup. We added it to the watchlist. Run it again tomorrow to check for a sell signal")
 
