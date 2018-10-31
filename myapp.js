@@ -415,9 +415,12 @@ class Algo {
                         $("#open_3").text(this.now.open_3)
                         $("#stock").text(this.sym.toUpperCase())
                         $("#stock").text(this.sym.toUpperCase())
+                        $("#signal").text("CALL / BUY")
+                        $("#signal_des").text("This stock checks off on our monthly setup and our daily setup. We added it to the watchlist. Please review your stock chart to confirm the reversal. Purchase at your own risk")
+
                         progressCol2("close_progress")
 
-                        $("thead").append("<tr><td> BUY </td> <td>"
+                        $("thead").append("<tr><td> CALL / BUY </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
                             + this.uptrend_Sell + "</tr></td>")
@@ -432,9 +435,12 @@ class Algo {
                         $("#open_3").text(this.now.open_3)
                         $("#stock").text(this.sym.toUpperCase())
                         $("#stock").text(this.sym.toUpperCase())
+                        $("#signal").text("ALMOST")
+                        $("#signal_des").text("This stock checks off on our monthly setup but not our daily setup. We added it to the watchlist. Run it again tomorrow to check for a buy signal")
+
                         progressCol2("close_progress")
 
-                        $("thead").append("<tr><td> WAIT </td> <td>"
+                        $("thead").append("<tr><td> DONT TRADE YET </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
                             + this.uptrend_Sell + "</tr></td>")
@@ -520,9 +526,12 @@ class Algo {
                         $("#open_3").text(this.now.open_3)
                         $("#stock").text(this.sym.toUpperCase())
                         $("#stock").text(this.sym.toUpperCase())
+                        $("#signal").text("PUT / SELL")
+                        $("#signal_des").text("This stock checks off on our monthly setup and our daily setup. We added it to the watchlist. Please review your stock chart to confirm the reversal. Purchase at your own risk")
+
                         progressCol2("close_progress")
 
-                        $("thead").append("<tr><td> SELL </td> <td>"
+                        $("thead").append("<tr><td> PUT </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
                             + this.uptrend_Sell + "</tr></td>")
@@ -537,9 +546,12 @@ class Algo {
                         $("#open_3").text(this.now.open_3)
                         $("#stock").text(this.sym.toUpperCase())
                         $("#stock").text(this.sym.toUpperCase())
+                        $("#signal").text("ALMOST")
+                        $("#signal_des").text("This stock checks off on our monthly setup but not our daily setup. We added it to the watchlist. Run it again tomorrow to check for a sell signal")
+
                         progressCol2("close_progress")
 
-                        $("thead").append("<tr><td> WAIT </td> <td>"
+                        $("thead").append("<tr><td> DONT TRADE YET </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
                             + this.uptrend_Sell + "</tr></td>")
@@ -587,6 +599,10 @@ class Algo {
                     $("#open_3").text(this.month.open_3);
                     $("#close_trend").text("DOWNTREND")
                 }
+
+                $("#signal").text("NO SIGNAL FOUND")
+                $("#signal_des").text("No setup found for this stock / option. Will not add to watchlist, please check another stock / option")
+
             }
         })
     }
