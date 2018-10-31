@@ -436,7 +436,7 @@ class Algo {
 
                         progressCol2("close_progress")
 
-                        $("thead").append("<tr><td> CALL / BUY </td> <td>"
+                        $("tbody").append("<tr><td> CALL / BUY </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
                             + this.uptrend_Sell + "</td><td>"
@@ -460,7 +460,7 @@ class Algo {
 
                         progressCol2("close_progress")
 
-                        $("thead").append("<tr><td> DONT TRADE YET </td> <td>"
+                        $("tbody").append("<tr><td> DONT TRADE YET </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.uptrend_Day_Buy + "</td> <td>"
                             + this.uptrend_Sell + "</td><td>"
@@ -557,7 +557,7 @@ class Algo {
 
                         progressCol2("close_progress")
 
-                        $("thead").append("<tr><td> PUT / SELL </td> <td>"
+                        $("tbody").append("<tr><td> PUT / SELL </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.downtrend_Buy + "</td> <td>"
                             + this.downtrend_Sell + "</td><td>"
@@ -580,7 +580,7 @@ class Algo {
 
                         progressCol2("close_progress")
 
-                        $("thead").append("<tr><td> DONT TRADE YET </td> <td>"
+                        $("tbody").append("<tr><td> DONT TRADE YET </td> <td>"
                             + this.sym.toUpperCase() + "</td> <td>"
                             + this.downtrend_Day_Sell + "</td> <td>"
                             + this.downtrend_Sell + "</td><td>"
@@ -639,8 +639,6 @@ class Algo {
                 $("#signal_des").text("No setup found for this stock / option. Will not add to watchlist, please check another stock / option")
 
             }
-
-
         })
 
         progress("100%", "100% COMPLETE")

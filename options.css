@@ -1,13 +1,25 @@
 
-p {
+p, .table {
     margin-bottom: .5rem;
     font-family: inherit;
     font-weight: 600;
     line-height: 1.2;
     color: inherit;
-    font-size: 20px;
     font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
     color: #73879C;
+}
+
+.table{
+width:100%;
+}
+
+.progress{
+    width:75%;
+}
+
+.btn{
+    margin-top: 4px;
+    width:100;
 }
 
 #signal{
@@ -21,16 +33,13 @@ p {
 }
 
 #symbol{
-    margin-top: 10px;
-}
-
-.btn{
-    width: 150;
+    margin-top: 5px;
+    width:100%;
 }
 
 #font{
     font-family: 'Righteous', cursive;
-    font-size:100%;
+    font-size:80%;
 }
 
 #stock{

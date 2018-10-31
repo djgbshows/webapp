@@ -51,24 +51,15 @@
         <!--ROW 1-->
         <div class="row">
 
-
-            <!--Col 2 Input Box-->
+            <!--Col 1 Input Box, Signal & Run Button-->
             <div class="col-sm-4">
 
-                <!--Col 1 Input Box & Run Button-->
                 <div class="col-sm-12 data">
 
+                    <!--Input box-->
                     <div class="row">
-                        <!--Input box-->
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <input type="input" placeholder="Input Stock 'aapl'" id="symbol"></input>
-                        </div>
-
-                        <!--Run Button-->
-                        <div class="col-sm-6">
-                            <center>
-                                <button class="btn btn-primary btn-lg" type="button" id="run">RUN</button>
-                            </center>
                         </div>
                     </div>
 
@@ -77,6 +68,15 @@
                         <div class="col-sm-12">
                             <center>
                                 <img src="https://storage.googleapis.com/iex/api/logos/AAPL.png" id="logo">
+                            </center>
+                        </div>
+                    </div>
+
+                    <!--Run Button-->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <center>
+                                <button class="btn btn-primary btn-md" type="button" id="run">RUN</button>
                             </center>
                         </div>
                     </div>
@@ -91,12 +91,11 @@
                         </div>
                     </div>
 
-
                 </div>
 
             </div>
 
-            <!--Col 1 Data Points-->
+            <!--Col 2 Data Points-->
             <div class="col-sm-4">
 
                 <!--High data-->
@@ -300,22 +299,30 @@
             <!--Col 3 Watchlist-->
             <div class="col-sm-4">
                 <center>
+                    <h3>
+                        <p>WATCHLIST</p>
+                    </h3>
 
-                    <h3>WATCHLIST</h3>
+                    <table class="table table-striped table-hover table-condensed table-bordered table-responsive">
+
+                        <thead>
+                            <th>SIGNAL</th>
+                            <th>STOCK</th>
+                            <th>BUY LIMIT</th>
+                            <th>SELL LIMIT</th>
+                            <th>PROFIT MARGIN</th>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
 
                 </center>
-                <table class="table table-bordered">
 
-                    <thead>
-                        <th>SIGNAL</th>
-                        <th>STOCK</th>
-                        <th>BUY LIMIT</th>
-                        <th>SELL LIMIT</th>
-                        <th>PROFIT MARGIN</th>
-                    </thead>
+
             </div>
 
         </div>
+
     </div>
 
     <!--Javascript-->
