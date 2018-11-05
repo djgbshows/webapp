@@ -11,8 +11,9 @@
 <h1> <a href="https://djgbshows.github.io/webapp/">CLICK HERE</a></h1>
 <h6>TO VIEW THIS PROJECT</h6>
 
-</br>
+
 Objective: Find a pattern within a 3 month timeframe. Look for a specific setup using a outward-in approach. Display the results.
+ 
  
 <ol>
  
