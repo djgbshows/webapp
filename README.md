@@ -7,7 +7,7 @@
 
 
 
-The idea is simple, Find a pattern within a certain timeframe of then look for a specific setup using a outward-in approach. 
+Objective: Find a pattern within a 3 month timeframe. Look for a specific setup using a outward-in approach. Display the results.
  
 <ol>
  
