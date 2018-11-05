@@ -8,7 +8,7 @@
 
 
 
-<h1> <a href="/" target="https://djgbshows.github.io/webapp/">CLICK HERE</a></h1>
+<h1> <a href="https://djgbshows.github.io/webapp/">CLICK HERE</a></h1>
 <h6>TO VIEW THIS PROJECT</h6>
 
 </br>
