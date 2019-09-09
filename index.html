@@ -11,8 +11,13 @@
 
     <!--Options.css-->
     <link rel="stylesheet" href="options.css">
+
     <!-- myapp.js -->
     <script src="myapp.js"></script>
+
+    <!--Backtester-->
+    <script src="backtester.js"></script>
+
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -329,18 +334,15 @@
     <script>
         $(document).ready(() => {
 
-
             $('#run').on('click', () => {
                 new Algo()
             })
 
             $("#symbol").keypress(function (e) {
                 if (e.which == 13) {
-                    new Algo()
+                    new Algo().init
                 }
             });
-
-
 
         })
     </script>
