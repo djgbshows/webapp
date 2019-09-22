@@ -46,11 +46,13 @@ class Algo {
 
         // Present Time
         this.currentTime = new Date.now().toString("hh:mm:ss")
-        this.presentTime = Date.now().toString("yyyy-MM-dd hh:mm:ss");
+        this.presentTime = Date.now().toString("hh:mm:ss");
         this.timeCheck = Date.now().toString("HH:MM:ss");
 
         //Api Key
         this.apiKey = "JSEZ8SK1RA528ZXU";
+        this.apiKeyDay = "CCEPGL1HNEPTKDWQ"
+        this.apiKeyWeek = "CIH0JUFAPPVA97BP";
 
         // Time Series 
         this.dailyTimeSeries = "Time Series (Daily)";
@@ -119,7 +121,8 @@ class Algo {
     ifMarketHours() {
 
         //If opened
-        if (this.timeCheck > "09:30:00" && this.timeCheck < "16:00:00") {
+        if (this.presentTime > "09:30:00" && this.presentTime < "16:00:00") {
+            console.log("Markethours opened")
 
             this.MarketHours = 'opened';
 
@@ -133,7 +136,7 @@ class Algo {
 
             //If closed
         } else {
-
+            console.log("Markethours closed")
             this.MarketHours = 'closed';
 
             if (this.MarketHours == "closed" && Date.today().is().monday()) {
@@ -181,6 +184,7 @@ class Algo {
         }
 
         progress("40%", "40% COMPLETE")
+        console.log(this.presentTime);
 
     }
 
@@ -355,43 +359,67 @@ class Algo {
             //Downtrend
             this.downtrend_Buy = (Number(this.month.open_3)).toFixed(2);
             this.downtrend_Sell = Number(this.month.close_2 - (this.month.high_2 - this.month.low_2)).toFixed(2);
-            this.downtrend_profit = "$" + Number(this.month.high_2 - this.month.low_2).toFixed(2);
+            this.downtrend_Profit = "$" + Number(this.month.high_2 - this.month.low_2).toFixed(2);
+
+            //Formulas
+            this.high = this.month.high_1 > this.month.high_2
+            this.low = this.month.low_1 > this.month.low_2
+            this.close = this.month.close_1 > this.month.close_2
+            this.gap = this.month.close_2 < this.month.open_3
 
             /*===================================================================================================== */
 
             // Checking for Uptrend
-            if (this.month.high_1 && this.month.low_1 && this.month.close_1 > this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 < this.month.open_3) {
+            if (this.high == true && this.low == true && this.close == true && this.gap == true) {
 
+                $("#signalMonth").text("CALL")
+
+                //ADDING TO WATCHLIST
+                this.watchList.push(this.sym)
+
+                $("tbody").append(
+                "<tr> <td> MONTHLY </td> <td> CALL - only trade uptrends  </td> <td>"
+                + this.sym.toUpperCase() + "</td> <td>"
+                + this.uptrend_Buy + "</td> <td>"
+                + this.uptrend_Sell + "</td><td>"
+                + this.uptrend_Profit + "</tr></td>")                
+                console.log("monthly uptrend found, now executing weekly trend")
                 this.getWeek()
-                console.log("uptrend found, now executing weekly trend")
                 /*===================================================================================================== */
+
 
             }
 
             //Checking for Downtrend
-            else if (this.month.high_1 && this.month.low_1 && this.month.close_1 < this.month.high_2 && this.month.low_2 && this.month.close_2 && this.month.close_2 > this.month.open_3) {
+            else if (this.high == false && this.low == false && this.close == false && this.gap == false) {
+                debugger;
+                $("#signalMonth").text("PUT")
 
+                this.watchList.push(this.sym)
+                $("tbody").append(
+                "<tr> <td> MONTHLY </td> <td> CALL </td> <td>"
+                + this.sym.toUpperCase() + "</td> <td>"
+                + this.downtrend_Buy + "</td> <td>"
+                + this.downtrend_Sell + "</td><td>"
+                + this.downtrend_Profit + "</tr></td>") 
+                console.log("monthly downtrend found, now executing weekly trend")
                 this.getWeek()
-                console.log("downtrend found, now executing weekly trend")
 
             } else {
-
-
-                $("#signal").text("NO SIGNAL FOUND")
-                $("#signal_des").text("No setup found for this stock / option. Will not add to watchlist, please check another stock / option")
+                $("#signalMonth").text("NO SIGNAL FOUND")
+                // $("#signal_des").text("No setup found for this stock / option. Will not add to watchlist, please check another stock / option")
 
             }
-
         })
 
         progress("33%", "33% COMPLETE")
 
-    }
-
+}
+    
     getWeek() {
 
         //api call for the month timeframe
-        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data, status) => {
+        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=" + this.sym + "&apikey=" + this.apiKeyWeek, (data, status) => {
 
             //Check for errors
             if (data.Information) {
@@ -435,20 +463,24 @@ class Algo {
             this.downtrend_Sell = Number(this.week.close_2 - (this.week.high_2 - this.week.low_2)).toFixed(2);
             this.downtrend_profit = "$" + Number(this.week.high_2 - this.week.low_2).toFixed(2);
 
-            // Checking for Uptrend
-            if (this.week.high_1 && this.week.low_1 && this.week.close_1 > this.week.high_2 && this.week.low_2 && this.week.close_2 && this.week.close_2 < this.week.open_3) {
+            //Formulas
+            this.high = this.week.high_1 > this.week.high_2
+            this.low = this.week.low_1 > this.week.low_2
+            this.close = this.week.close_1 > this.week.close_2
+            this.gap = this.week.close_2 < this.week.open_3
 
+            // Checking for Uptrend
+            if (this.high == true && this.low == true && this.close == true && this.gap == true) {
 
                 //GAP OHLC     
-                $("#week_trend").text("CALL")
+                $("#signalWeek").text("CALL")
                 progressCol2("close_progress")
 
                 //SIGNAL
+                console.log("uptrend found, now executing day trend")
                 this.getDay()
 
                 progress("75%", "75% COMPLETE")
-
-
 
                 // Adding to watchlist
                 this.watchList.push(this.sym)
@@ -456,21 +488,20 @@ class Algo {
                 console.log("uptrend found " + this.uptrend_Sell)
                 console.log("weekly downtrend now!")
 
-
-
                 //Checking for trend    
 
                 //====================================================================
 
                 //Checking for Downtrend
-            } else if (this.week.high_1 && this.week.low_1 && this.week.close_1 < this.week.high_2 && this.week.low_2 && this.week.close_2 && this.week.close_2 > this.week.open_3) {
-
+            } else if (this.high == false && this.low == false && this.close == false && this.gap == false) {
 
                 //GAP OHLC     
-                $("#week_trend").text("PUT")
+                $("#signalWeek").text("PUT")
                 progressCol2("close_progress")
 
                 //SIGNAL
+
+                console.log("downtrend found, now executing day trend")
                 this.getDay()
 
                 // Adding to watchlist
@@ -481,8 +512,8 @@ class Algo {
 
                 //Checking for trend    
             } else {
-
-                $("#signal").text("NO WEEKLY SIGNAL FOUND")
+                console.log("no weekly signal found")
+                $("#signalWeek").text("NO WEEKLY SIGNAL FOUND")
                 $("#signal_des").text("No setup found for this stock / option. Will not add to watchlist, please check another stock / option")
 
             }
@@ -493,7 +524,7 @@ class Algo {
     }
 
     getDay() {
-        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKey, (data) => {
+        $.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + this.sym + "&apikey=" + this.apiKeyDay, (data) => {
 
             this.now = {
 
@@ -529,15 +560,20 @@ class Algo {
             this.downtrend_Day_Sell = Number(this.month.close_2 - (this.month.high_2 - this.month.low_2) * 0.1).toFixed(2);
             this.downtrend_Current_Price = Number(data[this.dailyTimeSeries][this.today][this.close])
 
+            //Formulas
+            this.high = this.day.high_1 > this.day.high_2
+            this.low = this.day.low_1 > this.day.low_2
+            this.close = this.day.close_1 > this.day.close_2
+            this.gap = this.day.close_2 < this.day.open_3
 
-            if (this.now.high_1 && this.now.low_1 && this.now.close_1 < this.now.high_2 && this.now.low_2 && this.now.close_2 && this.now.close_2 > this.now.open_3) {
+            if (this.high == true && this.low == true && this.close == true && this.gap == true) {
 
                 //GAP OHLC     
                 $("#close_1").text(this.month.close_1)
 
                 this.dates()
 
-                $("#signal").text("PUT")
+                $("#signalDay").text("PUT")
                 $("#signal_des").text("Ready to sell. We added it to the watchlist. Please review your stock chart to confirm the reversal. Sell at your own risk")
 
                 progress("100%", "100% COMPLETE")
@@ -553,7 +589,7 @@ class Algo {
 
                 this.dates()
 
-                $("#signal").text("ALMOST")
+                $("#signalDay").text("ALMOST")
                 $("#signal_des").text("This stock checks off on our monthly setup but not our daily setup. We added it to the watchlist. Run it again tomorrow to check for a sell signal")
 
                 progress("100%", "100% COMPLETE")
@@ -570,14 +606,13 @@ class Algo {
 
             // Check if the buy limit is less then the sell limit
             if (this.downtrend_Current_Price < this.downtrend_Day_Sell) {
-                $("#signal").text("MISSED PUT / SELL")
+                $("#signalDay").text("MISSED PUT / SELL")
                 $("#signal_des").text("ATTENTION!!! You have missed any of our suggested entry points for this stock / option. We advise to check beginning of next month or try another stock / option")
                 progress("100%", "100% COMPLETE")
             }
 
         });
     }
-
 
     init() {
 
@@ -589,8 +624,10 @@ class Algo {
         this.getMonth()
 
     }
-
 }
+
+
+
 
 
 
