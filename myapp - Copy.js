@@ -72,8 +72,8 @@ class Algo {
         this.day_3 = Date.today().add(-2).days().toString("yyyy-MM-dd");
 
         // Weeks
-        this.week_1 = Date.today().friday().addWeeks(-2).toString("yyyy-MM-dd");
-        this.week_2 = Date.today().friday().addWeeks(-1).toString("yyyy-MM-dd");
+        this.week_1 = Date.today().friday().addWeeks(-3).toString("yyyy-MM-dd");
+        this.week_2 = Date.today().friday().addWeeks(-2).toString("yyyy-MM-dd");
 
         // Month
         this.month_1 = Date.today().add(-2).months().moveToLastDayOfMonth().toString("yyyy-MM-dd");
@@ -285,7 +285,24 @@ class Algo {
 
     }
 
+    //Request logo via api call DISCONTINUED:
+    /*getLogo() {
 
+        $.get("https://api.iextrading.com/1.0/stock/" + this.sym + "/logo", function (data, status) {
+            console.log(data.url)
+
+            if (data.message == "data is not defined") {
+
+                alert("invalid stock, please check spelling and try again.")
+            } else {
+
+                $("img#logo").attr('src', data.url);
+
+            }
+
+        })
+
+    }*/
 
     //Determine monthly trendline by analyzing the stock ohlc data via api call
     getMonth() {
@@ -331,33 +348,59 @@ class Algo {
             }
 
             /*===================================================================================================== */
+
             //Limit order formulas
+
+            //Uptrend
+            this.uptrend_Buy = (Number(this.month.open_3).toFixed(2));
+            this.uptrend_Sell = (Number(this.month.high_2 - this.month.low_2 + this.month.close_2) - .05).toFixed(2);
+            this.uptrend_Profit = "$" + (Number(this.month.high_2 - this.month.low_2) - .05).toFixed(2);
 
             //Downtrend
             this.downtrend_Buy = (Number(this.month.open_3)).toFixed(2);
             this.downtrend_Sell = Number(this.month.close_2 - (this.month.high_2 - this.month.low_2)).toFixed(2);
-            this.downtrend_Profit = "$" + Number(this.month.high_2 - this.month.low_2).toFixed(2) * 100;
+            this.downtrend_Profit = "$" + Number(this.month.high_2 - this.month.low_2).toFixed(2);
 
             //Formulas
             this.high = this.month.high_1 > this.month.high_2
             this.low = this.month.low_1 > this.month.low_2
             this.close = this.month.close_1 > this.month.close_2
             this.gap = this.month.close_2 < this.month.open_3
-            this.support_line = (Math.abs(this.month.open_2 - this.month.close_2 + this.month.close_2)).toFixed(2)
 
+
+            // Checking for Uptrend
+            /*if (this.high == true && this.low == true && this.close == true && this.gap == true) {
+
+                $("#signalMonth").text("CALL")
+
+                //ADDING TO WATCHLIST
+                this.watchList.push(this.sym)
+
+                $("tbody").append(
+                "<tr> <td> MONTHLY </td> <td> CALL - only trade uptrends  </td> <td>"
+                + this.sym.toUpperCase() + "</td> <td>"
+                + this.uptrend_Buy + "</td> <td>"
+                + this.uptrend_Sell + "</td><td>"
+                + this.uptrend_Profit + "</tr></td>")                
+                console.log("monthly uptrend found, now executing weekly trend")
+                this.getWeek()
+
+            }
+            
+            
 
             //Checking for Downtrend
-            if (this.high == false && this.low == false && this.close == false && this.gap == false) {
+            else if (this.high == false && this.low == false && this.close == false && this.gap == false) {
 
                 $("#signalMonth").text("PUT")
 
                 this.watchList.push(this.sym)
                 $("tbody").append(
-                    "<tr> <td> MONTHLY </td> <td> CALL </td> <td>"
-                    + this.sym.toUpperCase() + "</td> <td>"
-                    + this.downtrend_Buy + "</td> <td>"
-                    + this.downtrend_Sell + "</td><td>"
-                    + this.downtrend_Profit + "</tr></td>")
+                "<tr> <td> MONTHLY </td> <td> CALL </td> <td>"
+                + this.sym.toUpperCase() + "</td> <td>"
+                + this.downtrend_Buy + "</td> <td>"
+                + this.downtrend_Sell + "</td><td>"
+                + this.downtrend_Profit + "</tr></td>") 
                 console.log("monthly downtrend found, now executing weekly trend")
                 this.getWeek()
 
@@ -370,8 +413,8 @@ class Algo {
 
         progress("33%", "33% COMPLETE")
 
-    }
-
+}
+    
     getWeek() {
 
         //api call for the month timeframe
@@ -383,17 +426,10 @@ class Algo {
                 alert("Rate limit has been reached for " + this.sym.toUpperCase() + " Please check your list for previously checked symbols. Use another stock symbol")
             }
 
-            this.open = "1. open";
-            this.high = "2. high";
-            this.low = "3. low";
-            this.close = "4. close";
-            this.volume = "5. volume";
-
             //Get WEEK ohlc data
             this.week = {
 
                 ticker: data["Meta Data"]["2. Symbol"],
-
 
                 open_1: Number(data[this.weeklyTimeSeries][this.week_1][this.open]),
                 high_1: Number(data[this.weeklyTimeSeries][this.week_1][this.high]),
@@ -415,36 +451,52 @@ class Algo {
             }
 
             //Limit order formulas
-            console.log(data)
-            console.log(data[this.weeklyTimeSeries][this.week_1][this.close])
+
+            //Uptrend
+            this.uptrend_Buy = (Number(this.week.open_3).toFixed(2));
+            this.uptrend_Sell = (Number(this.week.high_2 - this.week.low_2 + this.week.close_2) - .05).toFixed(2);
+            this.uptrend_Profit = "$" + (Number(this.week.high_2 - this.week.low_2) - .05).toFixed(2);
 
             //Downtrend
             this.downtrend_Buy = (Number(this.week.open_3)).toFixed(2);
-            this.downtrend_Sell = this.week.close_2 - (this.week.high_2 - this.week.low_2);
-            this.downtrend_profit = "$" + (Number(this.week.high_2 - this.week.low_2).toFixed(2));
+            this.downtrend_Sell = Number(this.week.close_2 - (this.week.high_2 - this.week.low_2)).toFixed(2);
+            this.downtrend_profit = "$" + Number(this.week.high_2 - this.week.low_2).toFixed(2);
 
             //Formulas
-            this._high = Number(this.week.high_1 > this.week.high_2)
-            this.Form_low = this.week.low_1 > this.week.low_2
-            this.Form_close = this.week.close_1 > this.week.close_2
-            this.Form_gap = this.week.close_2 < this.week.open_3
-            this.Form_support_line = (Math.abs(this.week.open_2 - this.week.close_2 + this.week.close_2)).toFixed(2)
+            this.high = this.week.high_1 > this.week.high_2
+            this.low = this.week.low_1 > this.week.low_2
+            this.close = this.week.close_1 > this.week.close_2
+            this.gap = this.week.close_2 < this.week.open_3
 
-            console.log()
+            // Checking for Uptrend
+            if (this.high == true && this.low == true && this.close == true && this.gap == true) {
 
-            // Checking for Downtrend
-            if (this.Form_high == false && this.Form_low == false && this.Form_close == false && this.Form_gap == false) {
-debugger;
+                //GAP OHLC     
+                $("#signalWeek").text("CALL")
+                progressCol2("close_progress")
+
+                //SIGNAL
+                console.log("uptrend found, now executing day trend")
+                this.getDay()
+
+                progress("75%", "75% COMPLETE")
+
+                // Adding to watchlist
+                this.watchList.push(this.sym)
+                console.log("added " + this.watchList + " to watchlist");
+                console.log("uptrend found " + this.uptrend_Sell)
+                console.log("weekly downtrend now!")
+
+                //Checking for trend    
+
+                //====================================================================
+
+                //Checking for Downtrend
+            } else if (this.high == false && this.low == false && this.close == false && this.gap == false) {
+
                 //GAP OHLC     
                 $("#signalWeek").text("PUT")
                 progressCol2("close_progress")
-
-                $("tbody").append(
-                    "<tr> <td> WEEKLY </td> <td> CALL </td> <td>"
-                    + this.sym.toUpperCase() + "</td> <td>"
-                    + this.downtrend_Buy + "</td> <td>"
-                    + this.downtrend_Sell + "</td><td>"
-                    + this.downtrend_profit + "</tr></td>")
 
                 //SIGNAL
 

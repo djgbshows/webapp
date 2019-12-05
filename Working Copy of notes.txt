@@ -1,0 +1,16 @@
+the stock needs to lose momentem on the 2nd leg to start reversing
+
+theory: 2nd leg H-L+C = support line, if stock goes above support line then drops back below it - its losing momentum
+
+2nd leg H-L-C= sell limit on put order
+
+only trade puts, they consolidate quicker
+
+on js put the profit margin as # x 100 contracts
+
+
+test subjects
+tsla googl
+roku
+
+might need to consitantly calculate the stock each week as it goes, maybe even each day
