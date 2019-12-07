@@ -53,7 +53,7 @@ class Algo {
         this.apiKey = "JSEZ8SK1RA528ZXU";
         this.apiKeyDay = "CCEPGL1HNEPTKDWQ"
         this.apiKeyWeek = "CIH0JUFAPPVA97BP";
-
+        this.Form_low = 0;
         // Time Series 
         this.dailyTimeSeries = "Time Series (Daily)";
         this.weeklyTimeSeries = "Weekly Time Series";
@@ -372,6 +372,9 @@ class Algo {
 
     }
 
+
+
+
     getWeek() {
 
         //api call for the month timeframe
@@ -421,26 +424,32 @@ class Algo {
             //Downtrend
             this.downtrend_Buy = (Number(this.week.open_3)).toFixed(2);
             this.downtrend_Sell = this.week.close_2 - (this.week.high_2 - this.week.low_2);
-            this.downtrend_profit = "$" + (Number(this.week.high_2 - this.week.low_2).toFixed(2));
+            this.downtrend_profit = "$" + (Number(this.week.high_2 - this.week.low_2).toFixed(2))*100;
 
             //Formulas
-            this._high = Number(this.week.high_1 > this.week.high_2)
-            this.Form_low = this.week.low_1 > this.week.low_2
-            this.Form_close = this.week.close_1 > this.week.close_2
-            this.Form_gap = this.week.close_2 < this.week.open_3
-            this.Form_support_line = (Math.abs(this.week.open_2 - this.week.close_2 + this.week.close_2)).toFixed(2)
-
-            console.log()
+            console.log(this.week.low_1 > this.week.low_2)
+            this._high = (this.week.high_1 > this.week.high_2)
+            this._low = this.week.low_1 > this.week.low_2
+            this._close = this.week.close_1 > this.week.close_2
+            this._gap = this.week.close_2 < this.week.open_3
+            this._support_line = Number(Math.abs(this.week.open_2 - this.week.close_2 + this.week.close_2)).toFixed(2)
+            console.log(this.Form_support_line)
+            console.log(this._high)
 
             // Checking for Downtrend
-            if (this.Form_high == false && this.Form_low == false && this.Form_close == false && this.Form_gap == false) {
-debugger;
+            console.log("function to check if the following all = false ", this._high, this._low, this._close, this._gap)
+
+            if (
+                this._high == true && this._low == true && this._close == true && this._gap == true
+                //this._high == false && this._low == false && this._close == false && this._gap == false
+                ) {
+
                 //GAP OHLC     
                 $("#signalWeek").text("PUT")
                 progressCol2("close_progress")
 
                 $("tbody").append(
-                    "<tr> <td> WEEKLY </td> <td> CALL </td> <td>"
+                    "<tr> <td> WEEKLY </td> <td> PUT </td> <td>"
                     + this.sym.toUpperCase() + "</td> <td>"
                     + this.downtrend_Buy + "</td> <td>"
                     + this.downtrend_Sell + "</td><td>"
@@ -460,12 +469,10 @@ debugger;
                 //Checking for trend    
             } else {
                 console.log("no weekly signal found")
-                $("#signalWeek").text("NO WEEKLY SIGNAL FOUND")
-                $("#signal_des").text("No setup found for this stock / option. Will not add to watchlist, please check another stock / option")
-
+                $("#signalWeek").text("NO SIGNAL")
+                $("#signal_des").text("Scanning Complete")
             }
         })
-
         progress("75%", "75% COMPLETE")
 
     }
@@ -561,6 +568,10 @@ debugger;
         });
     }
 
+    runAll() {
+
+    }
+
     init() {
 
         this.ifWeekend()
@@ -569,7 +580,6 @@ debugger;
         this.ifLastDayOfMonth()
         //this.getLogo()
         this.getMonth()
-
     }
 }
 

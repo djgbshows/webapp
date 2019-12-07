@@ -14,3 +14,7 @@ tsla googl
 roku
 
 might need to consitantly calculate the stock each week as it goes, maybe even each day
+
+LEFT OFF ON LINE 458 THE START OF GETDAY()
+
+double check the weekly numbers to make sure they are printing the right formulas
